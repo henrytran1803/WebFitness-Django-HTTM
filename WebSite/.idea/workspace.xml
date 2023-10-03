@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fcd040ee-433b-42cf-bdfb-cb002fd6b80a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="fcd040ee-433b-42cf-bdfb-cb002fd6b80a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,7 +27,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "VietAnh",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/tranvietanh/Documents/GitHub/WebFitness-Django-HTTM/WebSite",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -81,6 +79,7 @@
       <workItem from="1696298469892" duration="825000" />
       <workItem from="1696299952254" duration="6000" />
       <workItem from="1696300138360" duration="1028000" />
+      <workItem from="1696323816850" duration="9000" />
     </task>
     <servers />
   </component>
