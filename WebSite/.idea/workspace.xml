@@ -10,9 +10,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2W9sk2iP4NwNnUp2N1cvbA6HpZd" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -23,7 +23,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "VietAnh",
     "last_opened_file_path": "/Users/tranvietanh/Documents/GitHub/WebFitness-Django-HTTM/WebSite",
     "vue.rearranger.settings.migration": "true"
   }
@@ -37,6 +37,7 @@
       <option name="presentableId" value="Default" />
       <updated>1696156269787</updated>
       <workItem from="1696156270822" duration="40000" />
+      <workItem from="1696298334587" duration="86000" />
     </task>
     <servers />
   </component>
