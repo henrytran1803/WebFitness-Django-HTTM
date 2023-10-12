@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div class="header-area header-transparent">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper d-flex align-items-center justify-content-between">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="../../static/img/logo/logo.png" alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu f-right d-none d-lg-block">
+                            <nav>
+                                <ul id="navigation">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="../../../templates/about.html">Body</a></li>
+                                    <li><a href="../../../templates/courses.html">Food</a></li>
+                                    <li><a href="../../../templates/pricing.html">Exersice</a></li>
+                                    <li><a href="../../../templates/blog.html">Blog</a>
+                                        <ul class="submenu">
+                                            <li><a href="../../../templates/blog.html">Blog</a></li>
+                                            <li><a href="../../../templates/blog_details.html">Blog Details</a></li>
+                                            <li><a href="../../../templates/elements.html">Elements</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header-btn -->
+                        <div class="header-btns d-none d-lg-block f-right">
+                           <a href="{% url 'signup' %}" class="btn">Sign up free</a>
+                       </div>
+                       <!-- Mobile Menu -->
+                       <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
