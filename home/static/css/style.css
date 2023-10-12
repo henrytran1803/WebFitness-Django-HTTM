@@ -210,13 +210,7 @@ h6 {
   font-weight: 500;
   text-transform: normal;
 }
-.tag-signup {
-  font-family: "Oswald", sans-serif;
-  color: #ffffff;
-  margin-top: 0px;
-  font-style: normal;
-  font-weight: 500;
-}
+
 /* line 23, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_common.scss */
 p {
   font-family: "Roboto Condensed", sans-serif;
@@ -3396,7 +3390,7 @@ hr {
 
 /* line 31, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_h1-hero.scss */
 .slider-area2 {
-  background-image: url(hero2.png);
+  background-image: url(../img/hero/hero2.png);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -3404,7 +3398,7 @@ hr {
 /* line 37, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_h1-hero.scss */
 .slider-area {
   margin-top: -1px;
-  background-image: url(h1_hero.png);
+  background-image: url(../img/hero/h1_hero.png);
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
@@ -7525,7 +7519,7 @@ del {
 
 /* line 766, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_elements.scss */
 .primary-checkbox input:checked + label {
-  background: url(primary-check.png) no-repeat center center/cover;
+  background: url(../img/elements/primary-check.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -7567,7 +7561,7 @@ del {
 
 /* line 803, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_elements.scss */
 .confirm-checkbox input:checked + label {
-  background: url(success-check.png) no-repeat center center/cover;
+  background: url(../img/elements/success-check.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -7615,7 +7609,7 @@ del {
 
 /* line 844, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_elements.scss */
 .disabled-checkbox input:checked + label {
-  background: url(disabled-check.png) no-repeat center center/cover;
+  background: url(../img/elements/disabled-check.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -7657,7 +7651,7 @@ del {
 
 /* line 881, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_elements.scss */
 .primary-radio input:checked + label {
-  background: url(primary-radio.png) no-repeat center center/cover;
+  background: url(../img/elements/primary-radio.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -7699,7 +7693,7 @@ del {
 
 /* line 918, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_elements.scss */
 .confirm-radio input:checked + label {
-  background: url(success-radio.png) no-repeat center center/cover;
+  background: url(../img/elements/success-radio.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -7747,7 +7741,7 @@ del {
 
 /* line 959, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_elements.scss */
 .disabled-radio input:checked + label {
-  background: url(disabled-radio.png) no-repeat center center/cover;
+  background: url(../img/elements/disabled-radio.png) no-repeat center center/cover;
   border: none;
 }
 
