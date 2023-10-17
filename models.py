@@ -10,7 +10,7 @@ from django.db import models
 
 class Bodymeasurements(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
-    userid = models.ForeignKey('User', models.DO_NOTHING, db_column='UserID', blank=True, null=True)  # Field name made lowercase.
+    userid = models.ForeignKey('AuthUser', models.DO_NOTHING, db_column='UserID', blank=True, null=True)  # Field name made lowercase.
     measurementdate = models.DateField(db_column='MeasurementDate', blank=True, null=True)  # Field name made lowercase.
     age = models.IntegerField(db_column='Age', blank=True, null=True)  # Field name made lowercase.
     weight = models.DecimalField(db_column='Weight', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
@@ -25,6 +25,7 @@ class Bodymeasurements(models.Model):
     biceps = models.DecimalField(db_column='Biceps', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     forearm = models.DecimalField(db_column='Forearm', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     wrist = models.DecimalField(db_column='Wrist', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    density = models.DecimalField(db_column='Density', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -141,17 +142,6 @@ class ServingSize(models.Model):
         db_table = 'Serving_Size'
 
 
-class Account(models.Model):
-    user_id = models.IntegerField(primary_key=True)
-    username = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    password = models.CharField(max_length=30, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    roles = models.IntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'account'
-
-
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150, db_collation='SQL_Latin1_General_CP1_CI_AS')
 
@@ -221,15 +211,6 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-class CountryCode(models.Model):
-    country_code = models.CharField(primary_key=True, max_length=7, db_collation='SQL_Latin1_General_CP1_CI_AS')
-    country_name = models.CharField(max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'country_code'
-
-
 class DetailEatTrack(models.Model):
     id = models.IntegerField(primary_key=True)  # The composite primary key (id, product) found, that is not supported. The first column is selected.
     product = models.ForeignKey(Products, models.DO_NOTHING, db_column='product')
@@ -290,7 +271,7 @@ class DjangoSession(models.Model):
 
 class EatTrack(models.Model):
     track_id = models.IntegerField(unique=True)
-    user = models.OneToOneField('User', models.DO_NOTHING, primary_key=True)  # The composite primary key (user_id, date) found, that is not supported. The first column is selected.
+    user = models.OneToOneField(AuthUser, models.DO_NOTHING, primary_key=True)  # The composite primary key (user_id, date) found, that is not supported. The first column is selected.
     date = models.DateField()
     total = models.IntegerField(blank=True, null=True)
 
@@ -298,21 +279,6 @@ class EatTrack(models.Model):
         managed = False
         db_table = 'eat_track'
         unique_together = (('user', 'date'),)
-
-
-class User(models.Model):
-    id = models.OneToOneField(Account, models.DO_NOTHING, db_column='id', primary_key=True)
-    f_name = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    l_name = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    email = models.CharField(max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    phone = models.CharField(max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    gender = models.CharField(max_length=1, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    date_of_birth = models.DateField(blank=True, null=True)
-    country_code = models.ForeignKey(CountryCode, models.DO_NOTHING, db_column='country_code', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'user'
 
 
 class UserPred(models.Model):

@@ -208,7 +208,6 @@ h6 {
   margin-top: 0px;
   font-style: normal;
   font-weight: 500;
-  text-transform: normal;
 }
 
 /* line 23, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_common.scss */
@@ -222,19 +221,7 @@ p {
 }
 
 /* line 34, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_common.scss */
-.bg-img-1 {
-  background-image: url(../img/slider/slider-img-1.jpg);
-}
 
-/* line 37, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_common.scss */
-.bg-img-2 {
-  background-image: url(../img/background-img/bg-img-2.jpg);
-}
-
-/* line 40, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_common.scss */
-.cta-bg-1 {
-  background-image: url(../img/background-img/bg-img-3.jpg);
-}
 
 /* line 45, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_common.scss */
 .img {

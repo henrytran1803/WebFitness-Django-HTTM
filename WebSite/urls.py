@@ -22,4 +22,7 @@ urlpatterns = [
     path("login/", include("login.urls")),
     path("signup/", include("signup.urls")),
     path("body/", include("body.urls")),
+    path("food/", include("food.urls")),
+    path("exercise/", include("exersice.urls")),
+    path("blog/", include("blog.urls")),
 ]
