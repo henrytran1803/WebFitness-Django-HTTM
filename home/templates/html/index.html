@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -22,7 +23,7 @@
     <link rel="stylesheet" href="../../static/css/themify-icons.css">
     <link rel="stylesheet" href="../../static/css/slick.css">
     <link rel="stylesheet" href="../../static/css/nice-select.css">
-    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 </head>
 <body class="black-bg">
@@ -53,10 +54,11 @@
                             <nav>
                                 <ul id="navigation">
                                     <li><a href="index.html">Home</a></li>
-                                    <li><a href="../../../templates/about.html">Body</a></li>
+                                    <li><a href="{% url 'body' %}">Body</a></li>
                                     <li><a href="../../../templates/courses.html">Food</a></li>
                                     <li><a href="../../../templates/pricing.html">Exersice</a></li>
                                     <li><a href="../../../templates/blog.html">Blog</a>
+                                    <li><a href="{% url 'logout' %}">Blog</a>
                                         <ul class="submenu">
                                             <li><a href="../../../templates/blog.html">Blog</a></li>
                                             <li><a href="../../../templates/blog_details.html">Blog Details</a></li>
@@ -90,10 +92,17 @@
                     <div class="row">
                         <div class="col-xl-9 col-lg-9 col-md-10">
                             <div class="hero__caption">
-                                <span data-animation="fadeInLeft" data-delay="0.1s">Hi This is for you</span>
-                                <h1 data-animation="fadeInLeft" data-delay="0.4s">Gym suport</h1>
-                                <a href="{% url 'login' %}" class="border-btn hero-btn" data-animation="fadeInLeft" data-delay="0.8s">Login now</a>
+                                <span data-animation="fadeInLeft" data-delay="0.1s">Hi, This is {{ username }}</span>
+                                <h1 data-animation="fadeInLeft" data-delay="0.4s">Gym support</h1>
+                                {% if is_logged_in %}
+                                    <a href="{% url 'logout' %}" class="border-btn hero-btn" data-animation="fadeInLeft" data-delay="0.8s">Logout</a>
+                                    <a href="{% url 'user' %}" class="border-btn hero-btn" data-animation="fadeInLeft" data-delay="0.8s">View User Profile</a>
+                                {% else %}
+                                    <a href="{% url 'login' %}" class="border-btn hero-btn" data-animation="fadeInLeft" data-delay="0.8s">Login</a>
+                                {% endif %}
                             </div>
+
+
                         </div>
                     </div>
                 </div>          
