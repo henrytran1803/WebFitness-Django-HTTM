@@ -16,7 +16,9 @@ def login_f(request):
     if request.method == 'POST':
         email = request.POST.get('login-email')
         password = request.POST.get('login-password')
+        print(email,password)
         user = authenticate(request, username=email, password=password)
+        print(user)
         if user is not None:
             login(request, user)  # Đăng nhập người dùng
             request.session['is_logged_in'] = True
@@ -24,11 +26,10 @@ def login_f(request):
             request.session['first_name'] = user.first_name
             request.session['last_name'] = user.last_name
             request.session['username'] = user_name
-            print(user_name)
+
             user_id = request.user.id
+            print(user_id)
             request.session['user_id'] = user_id
-            # Truyền thông tin user và is_logged_in vào trang chủ
-            # Truyền thông tin user và is_logged_in vào trang chủ
             return HttpResponseRedirect(reverse('index'))
 
         else:
