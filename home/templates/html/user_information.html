@@ -37,11 +37,12 @@
                         </div>
                         <!-- Header-btn -->
                         <div class="header-btns d-none d-lg-block f-right">
-                            {% if is_logged_in %}
-                                <a href="{% url 'logout' %}" class="btn">Logout</a>
-                            {% else %}
-                                <a href="{% url 'login' %}" class="btn">Login</a>
-                            {% endif %}
+                             {% if is_logged_in %}
+                                    <a href="{% url 'logout' %}" class="border-btn hero-btn" data-animation="fadeInLeft" data-delay="0.8s">Logout</a>
+                                    <a href="{% url 'user'  %}" class="border-btn hero-btn" data-animation="fadeInLeft" data-delay="0.8s">View User Profile</a>
+                                {% else %}
+                                    <a href="{% url 'login' %}" class="border-btn hero-btn" data-animation="fadeInLeft" data-delay="0.8s">Login</a>
+                                {% endif %}
                         </div>
                         <!-- Mobile Menu -->
                         <div class="col-12">
@@ -66,24 +67,11 @@
                 </div>
                 <!-- Form Group (last name)-->
                 <div class="col-md-6">
-                    <label class="small mb-1" for "inputLastName">Last name</label>
+                    <label class="small mb-1" for ="inputLastName">Last name</label>
                     <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="{{ last_name }}">
                 </div>
             </div>
-            <!-- Form Row -->
-            <div class="row gx-3 mb-3">
-                <!-- Form Group (organization name) -->
-                <div class="col-md-6">
-                    <label class="small mb-1" for="inputOrgName">Organization name</label>
-                    <input class="form-control" id="inputOrgName" type="text" placeholder="Enter your organization name" value="{{ organization_name }}">
-                </div>
-                <!-- Form Group (location) -->
-                <div class="col-md-6">
-                    <label class="small mb-1" for="inputLocation">Location</label>
-                    <input class="form-control" id="inputLocation" type="text" placeholder="Enter your location" value="{{ location }}">
-                </div>
-            </div>
-            <!-- Form Group (email address) -->
+
             <div class="mb-3">
                 <label class="small mb-1" for="inputEmailAddress">Email address</label>
                 <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="{{ email }}">
@@ -100,6 +88,18 @@
                     <label class="small mb-1" for="inputBirthday">Birthday</label>
                     <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="{{ birthday }}">
                 </div>
+            </div>
+            <div class="mb-3">
+                <label class="small mb-1" for="inputUsername">Body Fat</label>
+                <input class="form-control" id="inputUsername" type="text" placeholder="Body Fat" disabled value="{{ bdf }}">
+            </div>
+            <div class="mb-3">
+                <label class="small mb-1" for="inputUsername">TDEE</label>
+                <input class="form-control" id="inputUsername" type="text" placeholder="TDEE" disabled value="{{ tdee }}">
+            </div>
+            <div class="mb-3">
+                <label class="small mb-1" for="inputUsername">Total calories today</label>
+                <input class="form-control" id="inputUsername" type="text" placeholder="Calories" disabled value="{{ calories }}">
             </div>
             <!-- Save changes button -->
             <button class="btn btn-primary" type="button">Save changes</button>
