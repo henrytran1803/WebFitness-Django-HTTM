@@ -39,14 +39,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "login.apps.LoginConfig",
     "home.apps.HomeConfig",
-    "signup.apps.SignupConfig",
     "body.apps.BodyConfig",
     "rest_framework",
     "exersice.apps.ExersiceConfig",
     "food.apps.FoodConfig",
     "blog.apps.BlogConfig",
+    "signup"
 ]
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -57,6 +56,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
 ]
+
+
 
 ROOT_URLCONF = "WebSite.urls"
 
