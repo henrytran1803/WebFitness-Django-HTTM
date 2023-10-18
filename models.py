@@ -32,15 +32,6 @@ class Bodymeasurements(models.Model):
         db_table = 'BodyMeasurements'
 
 
-class DerivationCodeDescription(models.Model):
-    derivation_code = models.CharField(primary_key=True, max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS')
-    derivation_descript = models.CharField(db_column='Derivation_Descript', max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Derivation_Code_Description'
-
-
 class Equipmentneeded(models.Model):
     equipmentneededid = models.AutoField(db_column='EquipmentNeededID', primary_key=True)  # Field name made lowercase.
     equipmentneededname = models.CharField(db_column='EquipmentNeededName', max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
@@ -104,7 +95,7 @@ class Nutrient(models.Model):
     ndb_no = models.CharField(db_column='NDB_No', primary_key=True, max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
     nutrient_code = models.CharField(db_column='Nutrient_Code', max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     nutrient_name = models.CharField(db_column='Nutrient_name', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    derivation_code = models.ForeignKey(DerivationCodeDescription, models.DO_NOTHING, db_column='Derivation_Code', blank=True, null=True)  # Field name made lowercase.
+    derivation_code = models.CharField(db_column='Derivation_Code', max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     output_value = models.CharField(db_column='Output_value', max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
     output_uom = models.CharField(db_column='Output_uom', max_length=5, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
 
