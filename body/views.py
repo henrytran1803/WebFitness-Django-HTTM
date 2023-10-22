@@ -8,10 +8,13 @@ from django.conf import settings
 from django.db import models
 from .models import Bodymeasurements
 from .models import UserPred
+from .models import AuthUser
+
 def predict(request):
     if request.method == 'POST':
-        user_id = request.session.get('user_id')
-        density = float(request.POST.get('Density'))
+        user = AuthUser.objects.filter(id=request.user.id).first()
+        # Truy xuất id của người dùng đã đăng nhập
+        bodyfatencoded = float(request.POST.get('BodyFatEncoded'))
         age = float(request.POST.get('Age'))
         weight = float(request.POST.get('Weight'))
         height = float(request.POST.get('Height'))
@@ -26,14 +29,16 @@ def predict(request):
         forearm = float(request.POST.get('Forearm'))
         wrist = float(request.POST.get('Wrist'))
         activity_level = float(request.POST.get('ActivityLevel'))
-        model_path = settings.BASE_DIR / 'model' / 'linear_regression_model.joblib'
+        model_path = settings.BASE_DIR / 'model' / 'linear_regression_model_bdf.joblib'
         loaded_model = load(model_path)
         date = datetime.datetime.now()
-        result = loaded_model.predict([[density, age, weight, height, neck, chest, abdomen, hip, thigh, knee, ankle, biceps, forearm, wrist]])
-        user_id2 = request.user.id
+        result = loaded_model.predict([[bodyfatencoded, age, weight, height, neck, chest, abdomen, hip, thigh, knee,
+                                        ankle, biceps, forearm, wrist]])
+
+        # Tạo một bản ghi mới trong Bodymeasurements
         new_entry = Bodymeasurements(
-            userid=int(user_id2),  # Gán người dùng hiện tại
-            density=density,  # Gán các giá trị dự đoán
+            userid = user,
+            bodyfatencoded=bodyfatencoded,
             age=age,
             weight=weight,
             height=height,
@@ -47,14 +52,14 @@ def predict(request):
             biceps=biceps,
             forearm=forearm,
             wrist=wrist,
-
         )
-        print(user_id)
         new_entry.save()
         new_entry_id = new_entry.id
         current_date = date
         bmi = (weight / (height * height)) * 10000
-        tdee =activity_level*((9.99*weight)+(6.25*height))
+        tdee = activity_level * ((9.99 * weight) + (6.25 * height))
+
+        # Tạo một bản ghi mới trong UserPred
         new_pred_entry = UserPred(
             body_id=new_entry_id,
             bdf=result[0],
@@ -62,6 +67,7 @@ def predict(request):
             bmi=bmi
         )
         new_pred_entry.save()  # Lưu bản ghi UserPred
+
         return render(request, 'result.html', {'result': result[0]})
 
     return render(request, 'input.html')

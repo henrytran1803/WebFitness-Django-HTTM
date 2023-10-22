@@ -25,7 +25,7 @@ class Bodymeasurements(models.Model):
     biceps = models.DecimalField(db_column='Biceps', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     forearm = models.DecimalField(db_column='Forearm', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     wrist = models.DecimalField(db_column='Wrist', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-    density = models.DecimalField(db_column='Density', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    bodyfatencoded = models.IntegerField(db_column='BodyFatEncoded', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -270,6 +270,21 @@ class EatTrack(models.Model):
         managed = False
         db_table = 'eat_track'
         unique_together = (('user', 'date'),)
+
+
+class SignupCustomuser(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    password = models.CharField(max_length=128, db_collation='SQL_Latin1_General_CP1_CI_AS')
+    last_login = models.DateTimeField(blank=True, null=True)
+    email = models.CharField(unique=True, max_length=254, db_collation='SQL_Latin1_General_CP1_CI_AS')
+    first_name = models.CharField(max_length=30, db_collation='SQL_Latin1_General_CP1_CI_AS')
+    last_name = models.CharField(max_length=30, db_collation='SQL_Latin1_General_CP1_CI_AS')
+    is_active = models.BooleanField()
+    is_staff = models.BooleanField()
+
+    class Meta:
+        managed = False
+        db_table = 'signup_customuser'
 
 
 class UserPred(models.Model):
