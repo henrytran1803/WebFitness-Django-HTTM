@@ -4,9 +4,8 @@ from django.db import models
 
 class Bodymeasurements(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
-    userid = models.ForeignKey('AuthUser', on_delete=models.DO_NOTHING, db_column='UserID', blank=True, null=True)
-    userid = models.IntegerField()
-    measurementdate = models.DateTimeField(auto_now_add=True)
+    userid = models.ForeignKey('AuthUser', models.DO_NOTHING, db_column='UserID', blank=True, null=True)  # Field name made lowercase.
+    measurementdate = models.DateField(auto_now_add=True)  # Field name made lowercase.
     age = models.IntegerField(db_column='Age', blank=True, null=True)  # Field name made lowercase.
     weight = models.DecimalField(db_column='Weight', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     height = models.DecimalField(db_column='Height', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
@@ -20,7 +19,7 @@ class Bodymeasurements(models.Model):
     biceps = models.DecimalField(db_column='Biceps', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     forearm = models.DecimalField(db_column='Forearm', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     wrist = models.DecimalField(db_column='Wrist', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-    density = models.DecimalField(db_column='Density', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    bodyfatencoded = models.IntegerField(db_column='BodyFatEncoded', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False

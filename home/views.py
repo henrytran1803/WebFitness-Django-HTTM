@@ -30,10 +30,10 @@ def user(request):
         else:
             username = None  # Handle the case where the user with the specified ID is not found
 
-        lastBodymeasurements = Bodymeasurements.objects.filter(userid=user_id).order_by('measurementdate').first()
+        lastBodymeasurements = Bodymeasurements.objects.filter(userid=user_id).latest('measurementdate')
 
         if lastBodymeasurements is not None:
-            lastBodyUserPred = UserPred.objects.filter(body=lastBodymeasurements.id).order_by('date').first()
+            lastBodyUserPred = UserPred.objects.filter(body=lastBodymeasurements.id).latest('date')
         else:
             lastBodyUserPred = None  # Handle the case where lastBodymeasurements is None
     else:

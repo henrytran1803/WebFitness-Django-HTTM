@@ -18,7 +18,7 @@ class Bodymeasurements(models.Model):
     biceps = models.DecimalField(db_column='Biceps', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     forearm = models.DecimalField(db_column='Forearm', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     wrist = models.DecimalField(db_column='Wrist', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
-    density = models.DecimalField(db_column='Density', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
+    bodyfatencoded = models.IntegerField(db_column='BodyFatEncoded', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False

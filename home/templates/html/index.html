@@ -53,12 +53,11 @@
                         <div class="main-menu f-right d-none d-lg-block">
                             <nav>
                                 <ul id="navigation">
-                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="{% url 'index' %}">Home</a></li>
                                     <li><a href="{% url 'body' %}">Body</a></li>
                                     <li><a href="{% url 'food' %}">Food</a></li>
                                     <li><a href="{% url 'exercise' %}">Exersice</a></li>
                                     <li><a href="{% url 'blog' %}">Blog</a>
-                                    <li><a href="{% url 'logout' %}">Logout</a>
                                         <ul class="submenu">
                                             <li><a href="{% url 'blog' %}">Blog</a></li>
                                             <li><a href="{% url 'blog_details' %}">Blog Details</a></li>
