@@ -1,10 +1,7 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/user_information.css' %}">
+    <title>Chi Tiết Bài Tập</title>
 </head>
 <body>
 </head>
@@ -84,61 +81,24 @@
     </div>
     <!-- Header End -->
 </header>
-        <!-- User Information Form -->
-    <form action="{% url 'user' %}" method="post">
-        {% csrf_token %}
+<div>
+    <h1>Chi Tiết Bài Tập: {{ exercise.exercisename }}</h1>
 
-            <div class="mb-3">
-                <label class="small mb-1" for="inputUsername">Username (how your name will appear to other users on the site)</label>
-                <input class="form-control" id="inputUsername" name="inputUsername"type="text" placeholder="Enter your username" value="{{ username }}">
-            </div>
-            <!-- Form Row-->
-            <div class="row gx-3 mb-3">
-                <!-- Form Group (first name)-->
-                <div class="col-md-6">
-                    <label class="small mb-1" for="inputFirstName">First name</label>
-                    <input class="form-control" id="inputFirstName" name="inputFirstName"type="text" placeholder="Enter your first name" value="{{ first_name }}">
-                </div>
-                <!-- Form Group (last name)-->
-                <div class="col-md-6">
-                    <label class="small mb-1" for ="inputLastName">Last name</label>
-                    <input class="form-control" id="inputLastName" name="inputLastName"type="text" placeholder="Enter your last name" value="{{ last_name }}">
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                <input class="form-control" id="inputEmailAddress" name="inputEmailAddress"type="email" placeholder="Enter your email address" value="{{ email }}">
-            </div>
-            <!-- Form Row -->
-            <div class="row gx-3 mb-3">
-                <!-- Form Group (phone number) -->
-                <div class="col-md-6">
-                    <label class="small mb-1" for="inputPhone">Phone number</label>
-                    <input class="form-control" id="inputPhone" type="tel" placeholder="Enter your phone number" value="{{ phone_number }}">
-                </div>
-                <!-- Form Group (birthday) -->
-                <div class="col-md-6">
-                    <label class="small mb-1" for="inputBirthday">Birthday</label>
-                    <input class="form-control" id="inputBirthday" type="text" name="birthday" placeholder="Enter your birthday" value="{{ birthday }}">
-                </div>
-            </div>
-            <div class="mb-3">
-                <label class="small mb-1" for="inputUsername">Body Fat</label>
-                <input class="form-control" id="inputBdf" type="text" placeholder="Body Fat" readonly value="{{ bdf }}">
-            </div>
-            <div class="mb-3">
-                <label class="small mb-1" for="inputUsername">TDEE</label>
-                <input class="form-control" id="inputTdee" type="text" placeholder="TDEE" readonly value="{{ tdee }}">
-            </div>
-            <div class="mb-3">
-                <label class="small mb-1" for="inputUsername">Total calories today</label>
-                <input class="form-control" id="inputCalorries" type="text" placeholder="Calories" readonly value="{{ calories }}">
-            </div>
-            <!-- Save changes button -->
-            <button class="btn btn-primary" type="submit" >Save changes</button>
-
-    </form>
+    <ul>
+        <li><strong>Tên Bài Tập:</strong> {{ exercise.exercisename }}</li>
+        <li><strong>Nhóm Cơ:</strong> {{ exercise.musclegroup.musclegroupname }}</li>
+        <li><strong>Loại Bài Tập:</strong> {{ exercise.exercisetype.exercisetypename }}</li>
+        <li><strong>Thiết Bị Cần Thiết:</strong> {{ exercise.equipmentneeded.equipmentname }}</li>
+        <li><strong>Mô Tả:</strong> {{ exercise.description }}</li>
+        <li><strong>Độ Khó:</strong> {{ exercise.difficultylevel }}</li>
+        <li><strong>Lặp Lại:</strong> {{ exercise.repetitions }}</li>
+        <li><strong>Set:</strong> {{ exercise.sets }}</li>
+        <li><strong>Thời Gian (giây):</strong> {{ exercise.durationinseconds }}</li>
+        <li><strong>Calories Đốt Cháy Mỗi Phút:</strong> {{ exercise.caloriesburnedperminute }}</li>
+        <li><strong>Các Cơ Mục Tiêu:</strong> {{ exercise.targetedmuscles }}</li>
+    </ul>
+    <a href="{% url 'exersice' page_number=page_number %}">Quay lại danh sách bài tập</a>
+    </div>
 <footer>
     <!--? Footer Start-->
     <div class="footer-area black-bg">
@@ -161,11 +121,11 @@
                                         <div class="main-menu main-menu2 text-center">
                                             <nav>
                                                 <ul>
-                                                    <li><a href="{% url 'index' %}">Home</a></li>
-                                                    <li><a href="{% url 'body' %}">Body</a></li>
-                                                    <li><a href="{% url 'food' %}">Food</a></li>
-                                                    <li><a href="{% url 'exercise' %}">Exersice</a></li>
-                                                    <li><a href="{% url 'index' %}">Contact</a></li>
+                                                    <li><a href="index.html">Home</a></li>
+                                                    <li><a href="../../../templates/about.html">Body</a></li>
+                                                    <li><a href="../../../templates/courses.html">Food</a></li>
+                                                    <li><a href="../../../templates/pricing.html">Exersice</a></li>
+                                                    <li><a href="../../../templates/contact.html">Contact</a></li>
                                                 </ul>
                                             </nav>
                                         </div>
@@ -199,9 +159,5 @@
       </div>
       <!-- Footer End-->
   </footer>
-  <!-- Scroll Up -->
-  <div id="back-top" >
-    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-</div>
 </body>
 </html>

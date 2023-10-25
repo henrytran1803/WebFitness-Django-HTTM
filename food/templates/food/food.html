@@ -6,7 +6,83 @@
 </head>
 <body>
 <h1>hello</h1>
-
+</head>
+<body class="black-bg">
+    <!-- ? Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="../../static/img/logo/loder.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+        <div class="header-area header-transparent">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper d-flex align-items-center justify-content-between">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="../../static/img/logo/logo.png" alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu f-right d-none d-lg-block">
+                            <nav>
+                                {% if is_logged_in %}
+                                <ul id="navigation">
+                                    <li><a href="{% url 'index' %}">Home</a></li>
+                                    <li><a href="{% url 'body' %}">Body</a></li>
+                                    <li><a href="{% url 'food' %}">Food</a></li>
+                                    <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
+                                    <li><a href="{% url 'blog' %}">Blog</a>
+                                        <ul class="submenu">
+                                            <li><a href="{% url 'blog' %}">Blog</a></li>
+                                            <li><a href="{% url 'blog_details' %}">Blog Details</a></li>
+                                            <li><a href="{% url 'elements' %}">Elements</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                {% else %}
+                                    <ul id="navigation">
+                                    <li><a href="{% url 'login' %}">Home</a></li>
+                                    <li><a href="{% url 'login' %}">Body</a></li>
+                                    <li><a href="{% url 'login' %}">Food</a></li>
+                                    <li><a href="{% url 'login' %}">Exersice</a></li>
+                                    <li><a href="{% url 'login' %}">Blog</a>
+                                        <ul class="submenu">
+                                            <li><a href="{% url 'login' %}">Blog</a></li>
+                                            <li><a href="{% url 'login' %}">Blog Details</a></li>
+                                            <li><a href="{% url 'login' %}">Elements</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                {% endif %}
+                            </nav>
+                        </div>
+                        {% if is_logged_in %}
+                        <div class="header-btns d-none d-lg-block f-right">
+                            <h3>Welcome</h3>
+                       </div>
+                            {% else %}
+                            <div class="header-btns d-none d-lg-block f-right">
+                           <a href="{% url 'signup' %}" class="btn">Sign up free</a>
+                       </div>
+                        {% endif %}
+                       <!-- Mobile Menu -->
+                       <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+</header>
 </body>
 </html>
 
