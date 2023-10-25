@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông Tin Sản Phẩm</title>
+</head>
+<body>
+    {% if product %}
+        <h1>{{ product.product.product_name }}</h1>
+        <p>Mã Vạch: {{ product.code }}</p>
+        <p>Năng Lượng: {{ product.nutriscore_data.energy }} kcal</p>
+        <!-- Thêm thông tin dinh dưỡng khác ở đây -->
+    {% else %}
+        <p>Sản phẩm không tồn tại hoặc không có thông tin.</p>
+    {% endif %}
+</body>
+</html>

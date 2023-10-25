@@ -1,3 +1,10 @@
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
 
@@ -57,9 +64,9 @@ class ExerciseSuggestions(models.Model):
 
 class Exercises(models.Model):
     exerciseid = models.AutoField(db_column='ExerciseID', primary_key=True)  # Field name made lowercase.
-    exercisename = models.CharField(db_column='ExerciseName', max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
-    musclegroup = models.ForeignKey('Musclegroup', models.DO_NOTHING, db_column='MuscleGroup')  # Field name made lowercase.
-    exercisetype = models.ForeignKey(Exercisetype, models.DO_NOTHING, db_column='ExerciseType')  # Field name made lowercase.
+    exercisename = models.CharField(db_column='ExerciseName', max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    musclegroup = models.ForeignKey('Musclegroup', models.DO_NOTHING, db_column='MuscleGroup', blank=True, null=True)  # Field name made lowercase.
+    exercisetype = models.ForeignKey(Exercisetype, models.DO_NOTHING, db_column='ExerciseType', blank=True, null=True)  # Field name made lowercase.
     equipmentneeded = models.ForeignKey(Equipmentneeded, models.DO_NOTHING, db_column='EquipmentNeeded', blank=True, null=True)  # Field name made lowercase.
     description = models.TextField(db_column='Description', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
     difficultylevel = models.CharField(db_column='DifficultyLevel', max_length=20, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
@@ -82,48 +89,6 @@ class Musclegroup(models.Model):
     class Meta:
         managed = False
         db_table = 'MuscleGroup'
-
-
-class Nutrient(models.Model):
-    ndb_no = models.CharField(db_column='NDB_No', primary_key=True, max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
-    nutrient_code = models.CharField(db_column='Nutrient_Code', max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    nutrient_name = models.CharField(db_column='Nutrient_name', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    derivation_code = models.CharField(db_column='Derivation_Code', max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    output_value = models.CharField(db_column='Output_value', max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    output_uom = models.CharField(db_column='Output_uom', max_length=5, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Nutrient'
-
-
-class Products(models.Model):
-    ndb_number = models.OneToOneField('ServingSize', models.DO_NOTHING, db_column='NDB_Number', primary_key=True)  # Field name made lowercase. The composite primary key (NDB_Number, NDB_Number) found, that is not supported. The first column is selected.
-    long_name = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    data_source = models.CharField(max_length=5, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    gtin_upc = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    manufacturer = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    date_modified = models.DateTimeField(blank=True, null=True)
-    date_available = models.DateTimeField(blank=True, null=True)
-    ingredients_english = models.TextField(db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'Products'
-        unique_together = (('ndb_number', 'ndb_number'),)
-
-
-class ServingSize(models.Model):
-    ndb_no = models.CharField(db_column='NDB_No', primary_key=True, max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS')  # Field name made lowercase.
-    serving_size = models.CharField(db_column='Serving_Size', max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    serving_size_uom = models.CharField(db_column='Serving_Size_UOM', max_length=5, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    household_serving_size = models.CharField(db_column='Household_Serving_Size', max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    household_serving_size_uom = models.CharField(db_column='Household_Serving_Size_UOM', max_length=50, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-    preparation_state = models.CharField(db_column='Preparation_State', max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Serving_Size'
 
 
 class AuthGroup(models.Model):
@@ -195,11 +160,19 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
+class Brands(models.Model):
+    brand_id = models.IntegerField(primary_key=True)
+    brands_name = models.CharField(max_length=1, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'brands'
+
+
 class DetailEatTrack(models.Model):
     id = models.IntegerField(primary_key=True)  # The composite primary key (id, product) found, that is not supported. The first column is selected.
-    product = models.ForeignKey(Products, models.DO_NOTHING, db_column='product')
+    product = models.ForeignKey('Products', models.DO_NOTHING, db_column='product')
     serving_size = models.FloatField(blank=True, null=True)
-    unit = models.CharField(max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
     calories = models.IntegerField(blank=True, null=True)
 
     class Meta:
@@ -265,19 +238,30 @@ class EatTrack(models.Model):
         unique_together = (('user', 'date'),)
 
 
-class SignupCustomuser(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    password = models.CharField(max_length=128, db_collation='SQL_Latin1_General_CP1_CI_AS')
-    last_login = models.DateTimeField(blank=True, null=True)
-    email = models.CharField(unique=True, max_length=254, db_collation='SQL_Latin1_General_CP1_CI_AS')
-    first_name = models.CharField(max_length=30, db_collation='SQL_Latin1_General_CP1_CI_AS')
-    last_name = models.CharField(max_length=30, db_collation='SQL_Latin1_General_CP1_CI_AS')
-    is_active = models.BooleanField()
-    is_staff = models.BooleanField()
+class Nutritions(models.Model):
+    nutrition_id = models.IntegerField(primary_key=True)
+    carbohydrates_100g = models.FloatField(blank=True, null=True)
+    energy_kcal_100g = models.FloatField(db_column='energy-kcal_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    fat_100g = models.FloatField(blank=True, null=True)
+    proteins_100g = models.FloatField(blank=True, null=True)
+    sugars_100g = models.FloatField(blank=True, null=True)
+    sodium_100g = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False
-        db_table = 'signup_customuser'
+        db_table = 'nutritions'
+
+
+class Products(models.Model):
+    barcode = models.CharField(primary_key=True, max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS')
+    brand = models.ForeignKey(Brands, models.DO_NOTHING, db_column='brand', blank=True, null=True)
+    brands_tag = models.CharField(max_length=1, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    nutrition = models.ForeignKey(Nutritions, models.DO_NOTHING, db_column='nutrition', blank=True, null=True)
+    image_url = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'products'
 
 
 class UserPred(models.Model):
