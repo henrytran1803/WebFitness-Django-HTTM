@@ -160,20 +160,11 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-class Brands(models.Model):
-    brand_id = models.IntegerField(primary_key=True)
-    brands_name = models.CharField(max_length=1, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'brands'
-
-
 class DetailEatTrack(models.Model):
     id = models.IntegerField(primary_key=True)  # The composite primary key (id, product) found, that is not supported. The first column is selected.
     product = models.ForeignKey('Products', models.DO_NOTHING, db_column='product')
     serving_size = models.FloatField(blank=True, null=True)
-    calories = models.IntegerField(blank=True, null=True)
+    calories = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -239,7 +230,7 @@ class EatTrack(models.Model):
 
 
 class Nutritions(models.Model):
-    nutrition_id = models.IntegerField(primary_key=True)
+    nutrition_id = models.CharField(primary_key=True, max_length=15, db_collation='SQL_Latin1_General_CP1_CI_AS')
     carbohydrates_100g = models.FloatField(blank=True, null=True)
     energy_kcal_100g = models.FloatField(db_column='energy-kcal_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
     fat_100g = models.FloatField(blank=True, null=True)
@@ -253,10 +244,9 @@ class Nutritions(models.Model):
 
 
 class Products(models.Model):
-    barcode = models.CharField(primary_key=True, max_length=10, db_collation='SQL_Latin1_General_CP1_CI_AS')
-    brand = models.ForeignKey(Brands, models.DO_NOTHING, db_column='brand', blank=True, null=True)
-    brands_tag = models.CharField(max_length=1, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
-    nutrition = models.ForeignKey(Nutritions, models.DO_NOTHING, db_column='nutrition', blank=True, null=True)
+    barcode = models.OneToOneField(Nutritions, models.DO_NOTHING, db_column='barcode', primary_key=True)
+    brand = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
+    product_name = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
     image_url = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
 
     class Meta:
