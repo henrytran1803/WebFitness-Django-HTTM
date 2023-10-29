@@ -34,6 +34,7 @@
                                     <li><a href="{% url 'index' %}">Home</a></li>
                                     <li><a href="{% url 'body' %}">Body</a></li>
                                     <li><a href="{% url 'food' %}">Food</a></li>
+                                    <li><a href="{% url 'track' %}">Tracking</a></li>
                                     <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
                                     <li><a href="{% url 'blog' %}">Blog</a>
                                         <ul class="submenu">
@@ -48,6 +49,7 @@
                                     <li><a href="{% url 'login' %}">Home</a></li>
                                     <li><a href="{% url 'login' %}">Body</a></li>
                                     <li><a href="{% url 'login' %}">Food</a></li>
+                                        <li><a href="{% url 'login' %}">Tracking</a></li>
                                     <li><a href="{% url 'login' %}">Exersice</a></li>
                                     <li><a href="{% url 'login' %}">Blog</a>
                                         <ul class="submenu">
@@ -79,7 +81,7 @@
     </div>
     <!-- Header End -->
 </header>
-    <form method="post" action="{% url 'food' %}">
+    <form method="post" action="{% url 'detail' %}">
         {% csrf_token %}
         {% if product and nutrition %}
             <h1>{{ product.brands_tag }}</h1>
@@ -104,7 +106,7 @@
         {% elif product  %}
             <h1>{{ product.product_name }}</h1>
             <p>Brand: {{ product.brands}}</p>
-            <p>Barcode: {{ product.code}}</p>
+            <p>Barcode: {{ product.barcode}}</p>
             <p>Năng Lượng mỗi 100g: {{ product.nutriments.energy_100g}} kcal</p>
             <p>Carb mỗi 100g: {{ product.nutriments.carbohydrates_100g }} g</p>
             <p>Fat mỗi 100g: {{ product.nutriments.fat_100g }} g</p>

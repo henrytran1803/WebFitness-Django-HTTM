@@ -1,17 +1,21 @@
+from audioop import reverse
+from datetime import date
+from django.urls import reverse
 
 from django.shortcuts import render
 import requests
-from django.http import HttpResponseNotFound
-from .models import Products, Nutritions
+from django.http import HttpResponseNotFound,HttpResponseRedirect,HttpResponseServerError
+from .models import Products, Nutritions, EatTrack, DetailEatTrack, AuthUser
+from django.shortcuts import get_object_or_404
 
 def food(request):
     if request.method == 'POST':
         barcode = request.POST.get('barcode')
+        request.session['barcode'] = barcode
+        print(barcode)
         try:
-            # Kiểm tra xem sản phẩm có trong cơ sở dữ liệu không
             product = Products.objects.get(barcode__nutrition_id=barcode)
             nutrition = product.barcode  # Lấy đối tượng Nutritions từ trường barcode
-            # Nếu có trong cơ sở dữ liệu, trả về thông tin từ cơ sở dữ liệu
             return render(request, 'food/food_info.html', {'product': product, 'nutrition': nutrition})
         except Products.DoesNotExist:
             api_url = f'https://world.openfoodfacts.org/api/v0/product/{barcode}?fields=product_name,brands,nutriments,nutrition_grades,image_front_small_url'
@@ -38,10 +42,52 @@ def food(request):
                             'image_url': product_data['product']['image_front_small_url'],
                         }
                     )
-                    # Trả về thông tin sản phẩm
-                    return render(request, 'food/food_info.html', {'product': product_data['product'], 'nutrition': nutrition})
+                    return render(request, 'food/food_info.html', {'product': product, 'nutrition': nutrition, 'barcode': barcode})
                 else:
                     return HttpResponseNotFound('Không tìm thấy thông tin sản phẩm')
             else:
                 return HttpResponseNotFound('Không tìm thấy thông tin sản phẩm')
     return render(request, 'food/input_barcode.html')
+def tracking(request):
+    user_id = request.user.id
+    eat_tracks = EatTrack.objects.filter(user_id=user_id)
+    return render(request, 'food/tracking.html', {'eat_tracks': eat_tracks})
+def eat_track_detail(request, track_id):
+    eat_track = get_object_or_404(EatTrack, track_id=track_id)
+    detail_eat_tracks = DetailEatTrack.objects.filter(id=eat_track.track_id)
+    if not detail_eat_tracks:
+        no_detail_eat_tracks = True
+    else:
+        no_detail_eat_tracks = False
+    return render(request, 'food/eat_track_detail.html', {'eat_track': eat_track, 'detail_eat_tracks': detail_eat_tracks, 'no_detail_eat_tracks': no_detail_eat_tracks})
+def detail(request):
+    if request.method == 'POST':
+        serving_sizes = request.POST.get('serving')
+        barcode = request.session['barcode']  # Assuming it's a single barcode
+        print(barcode)
+        user_id = request.session.get('user_id')
+        print(serving_sizes, barcode, user_id)
+        try:
+            today = date.today()
+            user = AuthUser.objects.filter(id=user_id).first()
+            try:
+                eat_track = EatTrack.objects.get(user=user, date=today)
+            except EatTrack.DoesNotExist:
+                eat_track = EatTrack(user=user, date=today)
+                eat_track.save()
+            serving_size =float(serving_sizes)
+
+            try:
+                product_instance = Products.objects.get(barcode=barcode)
+            except Products.DoesNotExist:
+                print(f"Product with barcode {barcode} does not exist.")
+                return HttpResponseServerError(f"Product with barcode {barcode} does not exist.")
+
+            detail_eat_track, created = DetailEatTrack.objects.get_or_create(id=eat_track, product=product_instance)
+            detail_eat_track.serving_size = serving_size
+            detail_eat_track.save()
+
+            return HttpResponseRedirect(reverse('eat_track_detail', args=[eat_track.track_id]))
+        except Exception as e:
+            return HttpResponseServerError('Có lỗi xảy ra: ' + str(e))
+    return render(request, 'food/tracking.html')

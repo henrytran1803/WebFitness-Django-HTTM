@@ -161,7 +161,7 @@ class AuthUserUserPermissions(models.Model):
 
 
 class DetailEatTrack(models.Model):
-    id = models.IntegerField(primary_key=True)  # The composite primary key (id, product) found, that is not supported. The first column is selected.
+    id = models.OneToOneField('EatTrack', models.DO_NOTHING, db_column='id', primary_key=True)  # The composite primary key (id, product) found, that is not supported. The first column is selected.
     product = models.ForeignKey('Products', models.DO_NOTHING, db_column='product')
     serving_size = models.FloatField(blank=True, null=True)
     calories = models.FloatField(blank=True, null=True)
@@ -218,15 +218,16 @@ class DjangoSession(models.Model):
 
 
 class EatTrack(models.Model):
-    track_id = models.IntegerField(unique=True)
-    user = models.OneToOneField(AuthUser, models.DO_NOTHING, primary_key=True)  # The composite primary key (user_id, date) found, that is not supported. The first column is selected.
-    date = models.DateField()
-    total = models.IntegerField(blank=True, null=True)
+    track_id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(AuthUser, models.DO_NOTHING)
+    date = models.DateTimeField()
+    total = models.FloatField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'eat_track'
         unique_together = (('user', 'date'),)
+
 
 
 class Nutritions(models.Model):

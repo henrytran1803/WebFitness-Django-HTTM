@@ -8,18 +8,6 @@
 </head>
 <body>
 </head>
-<body class="black-bg">
-    <!-- ? Preloader Start -->
-    <div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="../../static/img/logo/loder.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Preloader Start -->
     <header>
         <!-- Header Start -->
@@ -39,6 +27,7 @@
                                     <li><a href="{% url 'index' %}">Home</a></li>
                                     <li><a href="{% url 'body' %}">Body</a></li>
                                     <li><a href="{% url 'food' %}">Food</a></li>
+                                    <li><a href="{% url 'track' %}">Tracking</a></li>
                                     <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
                                     <li><a href="{% url 'blog' %}">Blog</a>
                                         <ul class="submenu">
@@ -53,6 +42,7 @@
                                     <li><a href="{% url 'login' %}">Home</a></li>
                                     <li><a href="{% url 'login' %}">Body</a></li>
                                     <li><a href="{% url 'login' %}">Food</a></li>
+                                        <li><a href="{% url 'track' %}">Tracking</a></li>
                                     <li><a href="{% url 'login' %}">Exersice</a></li>
                                     <li><a href="{% url 'login' %}">Blog</a>
                                         <ul class="submenu">
@@ -164,7 +154,8 @@
                                                     <li><a href="{% url 'index' %}">Home</a></li>
                                                     <li><a href="{% url 'body' %}">Body</a></li>
                                                     <li><a href="{% url 'food' %}">Food</a></li>
-                                                    <li><a href="{% url 'exercise' %}">Exersice</a></li>
+                                                    <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
+
                                                     <li><a href="{% url 'index' %}">Contact</a></li>
                                                 </ul>
                                             </nav>

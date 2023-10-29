@@ -29,6 +29,7 @@ table, th, td {
                                     <li><a href="{% url 'index' %}">Home</a></li>
                                     <li><a href="{% url 'body' %}">Body</a></li>
                                     <li><a href="{% url 'food' %}">Food</a></li>
+                                    <li><a href="{% url 'track' %}">Tracking</a></li>
                                     <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
                                     <li><a href="{% url 'blog' %}">Blog</a>
                                         <ul class="submenu">
@@ -74,45 +75,16 @@ table, th, td {
     </div>
     <!-- Header End -->
 </header>
-<h2>Tracking daily <div id="current-time"></div>
-<script>
-    var curDate = new Date();
-
-    // Ngày hiện tại
-    var curDay = curDate.getDate();
-
-    // Tháng hiện tại
-    var curMonth = curDate.getMonth() + 1;
-
-    // Năm hiện tại
-    var curYear = curDate.getFullYear();
-
-    // Gán vào thẻ HTML
-    document.getElementById('current-time').innerHTML = curDay + "/" + curMonth + "/" + curYear;
-</script></h2>
-
-    <table style="width:100%">
-  <tr>
-    <th>STT</th>
-    <th>Name food</th>
-    <th>Time</th>
-    <th>Serving</th>
-    <th>Calories</th>
-  </tr>
-  {% for food in foods %}
-  <tr>
-    <td>{{ food.stt }}</td>
-    <td>{{ food.name }}</td>
-    <td>{{ food.time }}</td>
-    <td>{{ food.serving }}</td>
-    <td>{{ food.calories }}</td>
-  </tr>
-  {% endfor %}
-  <tr>
-    <td colspan="4">Total:</td>
-    <td>{{ total_calories }}</td>
-  </tr>
-</table>
+<h1>Danh sách EatTrack của bạn:</h1>
+    <ul>
+        {% for eat_track in eat_tracks %}
+            <li>
+                <a href="{% url 'eat_track_detail' eat_track.track_id %}">
+                    {{ eat_track.date }} - Total: {{ eat_track.total }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 <footer>
     <!--? Footer Start-->
     <div class="footer-area black-bg">
