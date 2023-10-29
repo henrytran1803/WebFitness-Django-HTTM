@@ -1,0 +1,28 @@
+<!-- eat_track_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết EatTrack</title>
+</head>
+<body>
+    <h1>Chi tiết EatTrack</h1>
+    <p>Date: {{ eat_track.date }}</p>
+    <p>Total: {{ eat_track.total }}</p>
+
+    {% if no_detail_eat_tracks %}
+        <p>Không có chi tiết EatTrack nào.</p>
+    {% else %}
+        <h2>Chi tiết DetailEatTrack</h2>
+        <ul>
+            {% for detail_eat_track in detail_eat_tracks %}
+                <li>
+                    <p><strong>Product:</strong> {{ detail_eat_track.product.product_name }}</p>
+                    <p><strong>Serving Size:</strong> {{ detail_eat_track.serving_size }}</p>
+                    <p><strong>Calories:</strong> {{ detail_eat_track.calories }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
