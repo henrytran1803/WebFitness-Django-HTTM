@@ -51,15 +51,14 @@ class Exercisetype(models.Model):
 
 
 class ExerciseSuggestions(models.Model):
-    user_pred = models.OneToOneField('UserPred', models.DO_NOTHING, db_column='user_pred', primary_key=True)  # The composite primary key (user_pred, ExerciseId) found, that is not supported. The first column is selected.
-    exerciseid = models.ForeignKey('Exercises', models.DO_NOTHING, db_column='ExerciseId')  # Field name made lowercase.
-    reps = models.IntegerField(db_column='Reps', blank=True, null=True)  # Field name made lowercase.
-    sets = models.IntegerField(db_column='Sets', blank=True, null=True)  # Field name made lowercase.
+    user_pred = models.OneToOneField('UserPred', models.DO_NOTHING, db_column='user_pred', primary_key=True)
+    label = models.IntegerField(blank=True, null=True)
+    exercise_type = models.IntegerField(blank=True, null=True)
+    exercise_difficulty = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'Exercise_suggestions'
-        unique_together = (('user_pred', 'exerciseid'),)
 
 
 class Exercises(models.Model):

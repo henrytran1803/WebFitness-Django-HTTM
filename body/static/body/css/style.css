@@ -49,7 +49,9 @@
 .white-bg {
   background: #ffffff;
 }
-
+.container .sliderform{
+  margin-top: 100px;
+}
 /* line 63, C:/Users/HP/Desktop/July-HTML/292 Health coach/assets/scss/_color.scss */
 .black-bg {
   background: #000;

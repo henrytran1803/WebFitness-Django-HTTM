@@ -229,23 +229,24 @@ class EatTrack(models.Model):
         unique_together = (('user', 'date'),)
 
 
-
 class Nutritions(models.Model):
     nutrition_id = models.CharField(primary_key=True, max_length=15, db_collation='SQL_Latin1_General_CP1_CI_AS')
     carbohydrates_100g = models.FloatField(blank=True, null=True)
-    energy_kcal_100g = models.FloatField(db_column='energy-kcal_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    energy_kcal_100g = models.FloatField(db_column='energy-kcal_100g', blank=True, null=True)
     fat_100g = models.FloatField(blank=True, null=True)
     proteins_100g = models.FloatField(blank=True, null=True)
     sugars_100g = models.FloatField(blank=True, null=True)
     sodium_100g = models.FloatField(blank=True, null=True)
 
+    # Tạo khóa ngoại ngược lại từ Nutritions đến Products
+    product = models.OneToOneField('Products', on_delete=models.CASCADE, related_name='nutrition')
+
     class Meta:
         managed = False
         db_table = 'nutritions'
 
-
 class Products(models.Model):
-    barcode = models.OneToOneField(Nutritions, models.DO_NOTHING, db_column='barcode', primary_key=True)
+    barcode = models.CharField(primary_key=True, max_length=15, db_collation='SQL_Latin1_General_CP1_CI_AS')
     brand = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
     product_name = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
     image_url = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)

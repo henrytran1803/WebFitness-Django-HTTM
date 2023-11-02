@@ -51,15 +51,14 @@ class Exercisetype(models.Model):
 
 
 class ExerciseSuggestions(models.Model):
-    user_pred = models.OneToOneField('UserPred', models.DO_NOTHING, db_column='user_pred', primary_key=True)  # The composite primary key (user_pred, ExerciseId) found, that is not supported. The first column is selected.
-    exerciseid = models.ForeignKey('Exercises', models.DO_NOTHING, db_column='ExerciseId')  # Field name made lowercase.
-    reps = models.IntegerField(db_column='Reps', blank=True, null=True)  # Field name made lowercase.
-    sets = models.IntegerField(db_column='Sets', blank=True, null=True)  # Field name made lowercase.
+    user_pred = models.OneToOneField('UserPred', models.DO_NOTHING, db_column='user_pred', primary_key=True)
+    label = models.IntegerField(blank=True, null=True)
+    exercise_type = models.IntegerField(blank=True, null=True)
+    exercise_difficulty = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'Exercise_suggestions'
-        unique_together = (('user_pred', 'exerciseid'),)
 
 
 class Exercises(models.Model):
@@ -69,7 +68,7 @@ class Exercises(models.Model):
     exercisetype = models.ForeignKey(Exercisetype, models.DO_NOTHING, db_column='ExerciseType', blank=True, null=True)  # Field name made lowercase.
     equipmentneeded = models.ForeignKey(Equipmentneeded, models.DO_NOTHING, db_column='EquipmentNeeded', blank=True, null=True)  # Field name made lowercase.
     description = models.TextField(db_column='Description', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    difficultylevel = models.CharField(db_column='DifficultyLevel', max_length=20, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    difficultylevel = models.IntegerField(db_column='DifficultyLevel', blank=True, null=True)  # Field name made lowercase.
     repetitions = models.IntegerField(db_column='Repetitions', blank=True, null=True)  # Field name made lowercase.
     sets = models.IntegerField(db_column='Sets', blank=True, null=True)  # Field name made lowercase.
     durationinseconds = models.IntegerField(db_column='DurationInSeconds', blank=True, null=True)  # Field name made lowercase.
@@ -218,8 +217,8 @@ class DjangoSession(models.Model):
 
 
 class EatTrack(models.Model):
-    track_id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(AuthUser, models.DO_NOTHING)
+    track_id = models.AutoField(unique=True)
+    user = models.OneToOneField(AuthUser, models.DO_NOTHING, primary_key=True)  # The composite primary key (user_id, date) found, that is not supported. The first column is selected.
     date = models.DateTimeField()
     total = models.FloatField(blank=True, null=True)
 
@@ -227,7 +226,6 @@ class EatTrack(models.Model):
         managed = False
         db_table = 'eat_track'
         unique_together = (('user', 'date'),)
-
 
 
 class Nutritions(models.Model):
