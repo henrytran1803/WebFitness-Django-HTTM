@@ -1,9 +1,70 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Load Bài Tập</title>
-</head>
-<body>
+    <title>Exercise</title>
+<meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.ico">
+            <style>
+        /* Định nghĩa các kiểu CSS bên trong thẻ style */
+        .sliderform{
+             margin-top: 100px;
+            color: white;
+            font-size: 24px; /* Thay đổi kích thước của chữ ở đây */
+            padding: 8px;
+            }
+        .exercise-list {
+    list-style: none; /* Ẩn dấu hiệu mục danh sách */
+    padding: 0;
+}
+
+.sliderform .exercise-list  {
+    margin: 10px 0;
+    position: relative;
+    line-height: 1.5;
+    transition: color 0.3s; /* Hiệu ứng màu chữ khi hover */
+}
+
+.sliderform .exercise-list li:hover {
+    color: red; /* Đổi màu chữ thành đỏ khi hover */
+}
+
+.sliderform .exercise-list ::before {
+    content: "•"; /* Nội dung trước thẻ li */
+    display: inline-block;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    border-radius: 50%; /* Tạo nút tròn */
+    font-size: 12px;
+    line-height: 20px;
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+    </style>
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'home/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href=".{% static 'home/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/gijgo.css' %}">
+    <link rel="stylesheet" href=".{% static 'home/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/animated-headline.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+
 </head>
 <body class="black-bg">
     <!-- ? Preloader Start -->
@@ -17,7 +78,6 @@
             </div>
         </div>
     </div>
-    <!-- Preloader Start -->
     <header>
         <!-- Header Start -->
         <div class="header-area header-transparent">
@@ -31,13 +91,14 @@
                         <!-- Main-menu -->
                         <div class="main-menu f-right d-none d-lg-block">
                             <nav>
-                                {% if is_logged_in %}
+                                {% if request.session.is_logged_in %}
                                 <ul id="navigation">
                                     <li><a href="{% url 'index' %}">Home</a></li>
                                     <li><a href="{% url 'body' %}">Body</a></li>
                                     <li><a href="{% url 'food' %}">Food</a></li>
                                     <li><a href="{% url 'track' %}">Tracking</a></li>
                                     <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
+                                    <li><a href="{% url 'predict_label' page_number=1 %}">Suggestion</a></li>
                                     <li><a href="{% url 'blog' %}">Blog</a>
                                         <ul class="submenu">
                                             <li><a href="{% url 'blog' %}">Blog</a></li>
@@ -51,7 +112,6 @@
                                     <li><a href="{% url 'login' %}">Home</a></li>
                                     <li><a href="{% url 'login' %}">Body</a></li>
                                     <li><a href="{% url 'login' %}">Food</a></li>
-                                        <li><a href="{% url 'track' %}">Tracking</a></li>
                                     <li><a href="{% url 'login' %}">Exersice</a></li>
                                     <li><a href="{% url 'login' %}">Blog</a>
                                         <ul class="submenu">
@@ -64,7 +124,7 @@
                                 {% endif %}
                             </nav>
                         </div>
-                        {% if is_logged_in %}
+                        {% if request.session.is_logged_in %}
                         <div class="header-btns d-none d-lg-block f-right">
                             <h3>Welcome</h3>
                        </div>
@@ -83,6 +143,8 @@
     </div>
     <!-- Header End -->
 </header>
+                    <div class="container">
+    <div class="sliderform">
     <h1>Danh Sách Bài Tập</h1>
     <ul>
             {% for exercise in page %}
@@ -93,7 +155,7 @@
     <div class="pagination">
         <span class="step-links">
             {% if page.has_previous %}
-                <a href="{% url 'exersice' page_number=1 %}">&laquo; first</a>
+                <a href="{% url 'exersice' page_number=1 %}"> first</a>
                 <a href="{% url 'exersice' page_number=page.previous_page_number %}">previous</a>
             {% endif %}
 
@@ -107,6 +169,8 @@
 
         </span>
     </div>
+    </div>
+                    </div>
 <footer>
     <!--? Footer Start-->
     <div class="footer-area black-bg">
@@ -167,5 +231,44 @@
       </div>
       <!-- Footer End-->
   </footer>
+
+<script src="{% static 'home/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{% static 'home/js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'home/js/popper.min.js' %}"></script>
+<script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{% static 'home/js/jquery.slicknav.min.js' %}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{% static 'home/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'home/js/slick.min.js' %}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{% static 'home/js/wow.min.js' %}"></script>
+<script src="{% static 'home/js/animated.headline.js' %}"></script>
+<script src="{% static 'home/js/jquery.magnific-popup.js' %}"></script>
+
+<!-- Date Picker -->
+<script src="{% static 'home/js/gijgo.min.js' %}"></script>
+<!-- Nice-select, sticky -->
+<script src="{% static 'home/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'home/js/jquery.sticky.js' %}"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src="{% static 'home/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'home/js/waypoints.min.js' %}"></script>
+<script src="{% static 'home/js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'home/js/hover-direction-snake.min.js' %}"></script>
+
+<!-- contact js -->
+<script src="{% static 'home/js/contact.js' %}"></script>
+<script src="{% static 'home/js/jquery.form.js' %}"></script>
+<script src=".{% static 'home/js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'home/js/mail-script.js' %}"></script>
+<script src="{% static 'home/js/jquery.ajaxchimp.min.js' %}"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src=".{% static 'home/js/plugins.js' %}"></script>
+<script src="{% static 'home/js/main.js' %}"></script>
 </body>
 </html>

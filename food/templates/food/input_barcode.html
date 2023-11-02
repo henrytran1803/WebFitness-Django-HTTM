@@ -1,10 +1,57 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+        <style>
+        .sliderform{
+             margin-top: 100px;
+            color: white;
+            }
+        /* Đặt đường viền cho bảng */
+        table {
+            border-collapse: collapse;
+            width: 100%; /* Để đảm bảo bảng lấp đầy chiều rộng của container cha */
+            size: 10px;
+        }
+
+        table td, table th {
+            font-size: 16px; /* Thay đổi kích thước của chữ ở đây */
+            padding: 8px;
+        }
+        /* Đặt đường viền cho các ô (cell) */
+        td {
+            border: 10px solid white;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4f5b69;
+            padding: 8px;
+        }
+
+        /* Tùy chỉnh màu nền cho hàng hover (di chuột qua) */
+        tr:hover {
+            background: #ddd;
+        }
+
+    </style>
+        <link rel="stylesheet" href="{% static 'body/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href=".{% static 'body/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/gijgo.css' %}">
+    <link rel="stylesheet" href=".{% static 'body/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/animated-headline.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/style.css' %}">
 </head>
-<body>
+<body class="black-bg">
 <div id="preloader-active">
         <div class="preloader d-flex align-items-center justify-content-center">
             <div class="preloader-inner position-relative">
@@ -29,13 +76,14 @@
                         <!-- Main-menu -->
                         <div class="main-menu f-right d-none d-lg-block">
                             <nav>
-                                {% if is_logged_in %}
+                                {% if request.session.is_logged_in %}
                                 <ul id="navigation">
                                     <li><a href="{% url 'index' %}">Home</a></li>
                                     <li><a href="{% url 'body' %}">Body</a></li>
                                     <li><a href="{% url 'food' %}">Food</a></li>
                                     <li><a href="{% url 'track' %}">Tracking</a></li>
                                     <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
+                                    <li><a href="{% url 'predict_label' page_number=1 %}">Suggestion</a></li>
                                     <li><a href="{% url 'blog' %}">Blog</a>
                                         <ul class="submenu">
                                             <li><a href="{% url 'blog' %}">Blog</a></li>
@@ -61,7 +109,7 @@
                                 {% endif %}
                             </nav>
                         </div>
-                        {% if is_logged_in %}
+                        {% if request.session.is_logged_in %}
                         <div class="header-btns d-none d-lg-block f-right">
                             <h3>Welcome</h3>
                        </div>
@@ -80,13 +128,79 @@
     </div>
     <!-- Header End -->
 </header>
+                 <div class="container">
+    <div class="sliderform">
  <form method="post">
         {% csrf_token %}
         <label for="barcode">Nhập Mã Vạch:</label>
         <input type="text" name="barcode" id="barcode">
         <input type="submit" value="Tra Cứu">
     </form>
+<h1>Search Results</h1>
+<ul>
+<input type="text" id="searchInput" placeholder="Search for products...">
 
+<table>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Brand</th>
+            <th>Barcode</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.product_name }}</td>
+                <td>{{ product.brand }}</td>
+                                 <td>
+                    <!-- Tạo liên kết dựa trên barcode -->
+                    <a href="{% url 'info' barcode=product.barcode %}">{{ product.barcode }}</a>
+                </td>
+                <td><img src="{{ product.image_url }}" alt="Hình ảnh sản phẩm" width="100"></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+document.getElementById('searchInput').addEventListener('input', function() {
+    const searchQuery = this.value.toLowerCase();
+    const tableRows = document.querySelectorAll('table tbody tr');
+
+    tableRows.forEach(function(row) {
+        const productName = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+        if (productName.includes(searchQuery)) {
+            row.style.display = 'table-row';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+</script>
+
+</ul>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if products.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ products.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current-page">
+            Page {{ products.number }} of {{ products.paginator.num_pages }}.
+        </span>
+
+        {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}">next</a>
+            <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+    </div>
+                 </div>
 <footer>
     <!--? Footer Start-->
     <div class="footer-area black-bg">
@@ -147,5 +261,43 @@
       </div>
       <!-- Footer End-->
   </footer>
+<script src="{% static 'home/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{% static 'home/js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'home/js/popper.min.js' %}"></script>
+<script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{% static 'home/js/jquery.slicknav.min.js' %}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{% static 'home/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'home/js/slick.min.js' %}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{% static 'home/js/wow.min.js' %}"></script>
+<script src="{% static 'home/js/animated.headline.js' %}"></script>
+<script src="{% static 'home/js/jquery.magnific-popup.js' %}"></script>
+
+<!-- Date Picker -->
+<script src="{% static 'home/js/gijgo.min.js' %}"></script>
+<!-- Nice-select, sticky -->
+<script src="{% static 'home/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'home/js/jquery.sticky.js' %}"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src="{% static 'home/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'home/js/waypoints.min.js' %}"></script>
+<script src="{% static 'home/js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'home/js/hover-direction-snake.min.js' %}"></script>
+
+<!-- contact js -->
+<script src="{% static 'home/js/contact.js' %}"></script>
+<script src="{% static 'home/js/jquery.form.js' %}"></script>
+<script src=".{% static 'home/js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'home/js/mail-script.js' %}"></script>
+<script src="{% static 'home/js/jquery.ajaxchimp.min.js' %}"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src=".{% static 'home/js/plugins.js' %}"></script>
+<script src="{% static 'home/js/main.js' %}"></script>
 </body>
 </html>

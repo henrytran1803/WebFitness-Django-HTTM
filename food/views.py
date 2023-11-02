@@ -1,12 +1,16 @@
 from audioop import reverse
 from datetime import date
 from django.urls import reverse
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 import requests
 from django.http import HttpResponseNotFound,HttpResponseRedirect,HttpResponseServerError
 from .models import Products, Nutritions, EatTrack, DetailEatTrack, AuthUser
 from django.shortcuts import get_object_or_404
+def info(request, barcode):
+    product = get_object_or_404(Products, barcode=barcode)
+    nutrition = product.barcode
+    return render(request, 'food/food_info.html', {'product': product, 'nutrition': nutrition})
 
 def food(request):
     if request.method == 'POST':
@@ -14,13 +18,12 @@ def food(request):
         request.session['barcode'] = barcode
         print(barcode)
         try:
-            product = Products.objects.get(barcode__nutrition_id=barcode)
-            nutrition = product.barcode  # Lấy đối tượng Nutritions từ trường barcode
+            product = Products.objects.get(barcode=barcode)
+            nutrition = product.barcode
             return render(request, 'food/food_info.html', {'product': product, 'nutrition': nutrition})
         except Products.DoesNotExist:
             api_url = f'https://world.openfoodfacts.org/api/v0/product/{barcode}?fields=product_name,brands,nutriments,nutrition_grades,image_front_small_url'
             response = requests.get(api_url)
-
             if response.status_code == 200:
                 product_data = response.json()
                 if 'product' in product_data:
@@ -38,7 +41,8 @@ def food(request):
                     product, created = Products.objects.get_or_create(
                         barcode=nutrition,
                         defaults={
-                            'brand': product_data['product']['brands'],
+                            'product_name': product_data['product']['product_name'],
+                            'brand': product_data['product']['product_name'],
                             'image_url': product_data['product']['image_front_small_url'],
                         }
                     )
@@ -47,7 +51,20 @@ def food(request):
                     return HttpResponseNotFound('Không tìm thấy thông tin sản phẩm')
             else:
                 return HttpResponseNotFound('Không tìm thấy thông tin sản phẩm')
-    return render(request, 'food/input_barcode.html')
+
+    # Retrieve all products
+    all_products = Products.objects.all()
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(all_products, 5)  # Show 5 products per page
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger:
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
+
+    return render(request, 'food/input_barcode.html', {'products': products})
 def tracking(request):
     user_id = request.user.id
     eat_tracks = EatTrack.objects.filter(user_id=user_id)

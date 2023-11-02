@@ -1,11 +1,134 @@
-<!-- eat_track_detail.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Chi tiết EatTrack</title>
+            <style>
+        .sliderform{
+             margin-top: 100px;
+            color: white;
+            }
+        /* Đặt đường viền cho bảng */
+        table {
+            border-collapse: collapse;
+            width: 100%; /* Để đảm bảo bảng lấp đầy chiều rộng của container cha */
+            size: 10px;
+        }
+
+        table td, table th {
+            font-size: 16px; /* Thay đổi kích thước của chữ ở đây */
+            padding: 8px;
+        }
+        /* Đặt đường viền cho các ô (cell) */
+        td {
+            border: 10px solid white;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4f5b69;
+            padding: 8px;
+        }
+
+        /* Tùy chỉnh màu nền cho hàng hover (di chuột qua) */
+        tr:hover {
+            background: #ddd;
+        }
+
+    </style>
+        <link rel="stylesheet" href="{% static 'food/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'food/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href=".{% static 'food/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'food/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'food/css/gijgo.css' %}">
+    <link rel="stylesheet" href=".{% static 'food/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'food/css/animated-headline.css' %}">
+    <link rel="stylesheet" href="{% static 'food/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'food/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'food/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'food/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'food/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'food/css/style.css' %}">
 </head>
-<body>
+<body class="black-bg">
+<div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="../../static/img/logo/loder.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <header>
+        <!-- Header Start -->
+        <div class="header-area header-transparent">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper d-flex align-items-center justify-content-between">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.html"><img src="../../static/img/logo/logo.png" alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu f-right d-none d-lg-block">
+                            <nav>
+                                {% if request.session.is_logged_in %}
+                                <ul id="navigation">
+                                    <li><a href="{% url 'index' %}">Home</a></li>
+                                    <li><a href="{% url 'body' %}">Body</a></li>
+                                    <li><a href="{% url 'food' %}">Food</a></li>
+                                    <li><a href="{% url 'track' %}">Tracking</a></li>
+                                    <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
+                                    <li><a href="{% url 'predict_label' page_number=1 %}">Suggestion</a></li>
+                                    <li><a href="{% url 'blog' %}">Blog</a>
+                                        <ul class="submenu">
+                                            <li><a href="{% url 'blog' %}">Blog</a></li>
+                                            <li><a href="{% url 'blog_details' %}">Blog Details</a></li>
+                                            <li><a href="{% url 'elements' %}">Elements</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                {% else %}
+                                    <ul id="navigation">
+                                    <li><a href="{% url 'login' %}">Home</a></li>
+                                    <li><a href="{% url 'login' %}">Body</a></li>
+                                    <li><a href="{% url 'login' %}">Food</a></li>
+                                    <li><a href="{% url 'login' %}">Exersice</a></li>
+                                    <li><a href="{% url 'login' %}">Blog</a>
+                                        <ul class="submenu">
+                                            <li><a href="{% url 'login' %}">Blog</a></li>
+                                            <li><a href="{% url 'login' %}">Blog Details</a></li>
+                                            <li><a href="{% url 'login' %}">Elements</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                {% endif %}
+                            </nav>
+                        </div>
+                        {% if request.session.is_logged_in %}
+                        <div class="header-btns d-none d-lg-block f-right">
+                            <h3>Welcome</h3>
+                       </div>
+                            {% else %}
+                            <div class="header-btns d-none d-lg-block f-right">
+                           <a href="{% url 'signup' %}" class="btn">Sign up free</a>
+                       </div>
+                        {% endif %}
+                       <!-- Mobile Menu -->
+                       <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+</header>
+                 <div class="container">
+    <div class="sliderform">
     <h1>Chi tiết EatTrack</h1>
     <p>Date: {{ eat_track.date }}</p>
     <p>Total: {{ eat_track.total }}</p>
@@ -24,5 +147,107 @@
             {% endfor %}
         </ul>
     {% endif %}
+    </div>
+                 </div>
+
+<footer>
+    <!--? Footer Start-->
+    <div class="footer-area black-bg">
+        <div class="container">
+            <div class="footer-top footer-padding">
+                <!-- Footer Menu -->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="single-footer-caption mb-50 text-center">
+                            <!-- logo -->
+                            <div class="footer-logo wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
+                                <a href="index.html"><img src="../../static/img/logo/logo2_footer.png" alt=""></a>
+                            </div>
+                            <!-- Menu -->
+                            <!-- Header Start -->
+                            <div class="header-area main-header2 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".4s">
+                                <div class="main-header main-header2">
+                                    <div class="menu-wrapper menu-wrapper2">
+                                        <!-- Main-menu -->
+                                        <div class="main-menu main-menu2 text-center">
+                                            <nav>
+                                                <ul>
+                                                    <li><a href="index.html">Home</a></li>
+                                                    <li><a href="../../../templates/about.html">Body</a></li>
+                                                    <li><a href="../../../templates/courses.html">Food</a></li>
+                                                    <li><a href="../../../templates/pricing.html">Exersice</a></li>
+                                                    <li><a href="../../../templates/contact.html">Contact</a></li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Header End -->
+                            <!-- social -->
+                            <div class="footer-social mt-30 wow fadeInUp" data-wow-duration="3s" data-wow-delay=".8s">
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right text-center">
+                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                              Copyright &copy;<script>document.write(new Date().getFullYear());</script> TranVietAnh <i class="fa fa-heart" aria-hidden="true"></i> by <a href="" target="_blank">Anh</a>
+                              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Footer End-->
+  </footer>
+<script src="{% static 'home/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{% static 'home/js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'home/js/popper.min.js' %}"></script>
+<script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{% static 'home/js/jquery.slicknav.min.js' %}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{% static 'home/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'home/js/slick.min.js' %}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{% static 'home/js/wow.min.js' %}"></script>
+<script src="{% static 'home/js/animated.headline.js' %}"></script>
+<script src="{% static 'home/js/jquery.magnific-popup.js' %}"></script>
+
+<!-- Date Picker -->
+<script src="{% static 'home/js/gijgo.min.js' %}"></script>
+<!-- Nice-select, sticky -->
+<script src="{% static 'home/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'home/js/jquery.sticky.js' %}"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src="{% static 'home/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'home/js/waypoints.min.js' %}"></script>
+<script src="{% static 'home/js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'home/js/hover-direction-snake.min.js' %}"></script>
+
+<!-- contact js -->
+<script src="{% static 'home/js/contact.js' %}"></script>
+<script src="{% static 'home/js/jquery.form.js' %}"></script>
+<script src=".{% static 'home/js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'home/js/mail-script.js' %}"></script>
+<script src="{% static 'home/js/jquery.ajaxchimp.min.js' %}"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src=".{% static 'home/js/plugins.js' %}"></script>
+<script src="{% static 'home/js/main.js' %}"></script>
 </body>
+
 </html>

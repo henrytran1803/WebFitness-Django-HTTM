@@ -11,7 +11,7 @@ from django.db import models
 class Bodymeasurements(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     userid = models.ForeignKey('AuthUser', models.DO_NOTHING, db_column='UserID', blank=True, null=True)  # Field name made lowercase.
-    measurementdate = models.DateField(db_column='MeasurementDate', blank=True, null=True)  # Field name made lowercase.
+    measurementdate = models.DateField(db_column='MeasurementDate', auto_now_add=True)  # Thêm auto_now_add=True ở đây
     age = models.IntegerField(db_column='Age', blank=True, null=True)  # Field name made lowercase.
     weight = models.DecimalField(db_column='Weight', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
     height = models.DecimalField(db_column='Height', max_digits=5, decimal_places=2, blank=True, null=True)  # Field name made lowercase.
@@ -260,7 +260,7 @@ class UserPred(models.Model):
     bdf = models.FloatField(blank=True, null=True)
     tdee = models.IntegerField(blank=True, null=True)
     bmi = models.FloatField(blank=True, null=True)
-    date = models.DateField(blank=True, null=True)
+    date = models.DateField(auto_now_add=True)
 
     class Meta:
         managed = False

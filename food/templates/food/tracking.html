@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +9,67 @@ table, th, td {
   border:1px solid black;
 }
 </style>
+     <link rel="stylesheet" href="{% static 'body/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href=".{% static 'body/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/gijgo.css' %}">
+    <link rel="stylesheet" href=".{% static 'body/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/animated-headline.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'body/css/style.css' %}">
+            <style>
+        .sliderform{
+             margin-top: 100px;
+            color: white;
+            font-size: 16px; /* Thay đổi kích thước của chữ ở đây */
+            padding: 8px;
+            }
+        /* Đặt đường viền cho bảng */
+        table {
+            border-collapse: collapse;
+            width: 100%; /* Để đảm bảo bảng lấp đầy chiều rộng của container cha */
+            size: 10px;
+        }
+
+        table td, table th {
+            font-size: 16px; /* Thay đổi kích thước của chữ ở đây */
+            padding: 8px;
+        }
+        /* Đặt đường viền cho các ô (cell) */
+        td {
+            border: 10px solid white;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4f5b69;
+            padding: 8px;
+        }
+
+        /* Tùy chỉnh màu nền cho hàng hover (di chuột qua) */
+        tr:hover {
+            background: #ddd;
+        }
+
+    </style>
+    <link rel="stylesheet" href="{% static 'food/css/style.css' %}">
 </head>
-<body>
-    <!-- Preloader Start -->
+<body class="black-bg">
+<div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="../../static/img/logo/loder.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
     <header>
         <!-- Header Start -->
         <div class="header-area header-transparent">
@@ -24,13 +83,14 @@ table, th, td {
                         <!-- Main-menu -->
                         <div class="main-menu f-right d-none d-lg-block">
                             <nav>
-                                {% if is_logged_in %}
+                                {% if request.session.is_logged_in %}
                                 <ul id="navigation">
                                     <li><a href="{% url 'index' %}">Home</a></li>
                                     <li><a href="{% url 'body' %}">Body</a></li>
                                     <li><a href="{% url 'food' %}">Food</a></li>
                                     <li><a href="{% url 'track' %}">Tracking</a></li>
                                     <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
+                                    <li><a href="{% url 'predict_label' page_number=1 %}">Suggestion</a></li>
                                     <li><a href="{% url 'blog' %}">Blog</a>
                                         <ul class="submenu">
                                             <li><a href="{% url 'blog' %}">Blog</a></li>
@@ -56,7 +116,7 @@ table, th, td {
                                 {% endif %}
                             </nav>
                         </div>
-                        {% if is_logged_in %}
+                        {% if request.session.is_logged_in %}
                         <div class="header-btns d-none d-lg-block f-right">
                             <h3>Welcome</h3>
                        </div>
@@ -75,6 +135,8 @@ table, th, td {
     </div>
     <!-- Header End -->
 </header>
+                 <div class="container">
+    <div class="sliderform">
 <h1>Danh sách EatTrack của bạn:</h1>
     <ul>
         {% for eat_track in eat_tracks %}
@@ -85,6 +147,8 @@ table, th, td {
             </li>
         {% endfor %}
     </ul>
+    </div>
+                 </div>
 <footer>
     <!--? Footer Start-->
     <div class="footer-area black-bg">
@@ -145,5 +209,43 @@ table, th, td {
       </div>
       <!-- Footer End-->
   </footer>
+<script src="{% static 'home/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{% static 'home/js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'home/js/popper.min.js' %}"></script>
+<script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{% static 'home/js/jquery.slicknav.min.js' %}"></script>
+
+<!-- Jquery Slick , Owl-Carousel Plugins -->
+<script src="{% static 'home/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'home/js/slick.min.js' %}"></script>
+<!-- One Page, Animated-HeadLin -->
+<script src="{% static 'home/js/wow.min.js' %}"></script>
+<script src="{% static 'home/js/animated.headline.js' %}"></script>
+<script src="{% static 'home/js/jquery.magnific-popup.js' %}"></script>
+
+<!-- Date Picker -->
+<script src="{% static 'home/js/gijgo.min.js' %}"></script>
+<!-- Nice-select, sticky -->
+<script src="{% static 'home/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'home/js/jquery.sticky.js' %}"></script>
+
+<!-- counter , waypoint,Hover Direction -->
+<script src="{% static 'home/js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'home/js/waypoints.min.js' %}"></script>
+<script src="{% static 'home/js/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'home/js/hover-direction-snake.min.js' %}"></script>
+
+<!-- contact js -->
+<script src="{% static 'home/js/contact.js' %}"></script>
+<script src="{% static 'home/js/jquery.form.js' %}"></script>
+<script src=".{% static 'home/js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'home/js/mail-script.js' %}"></script>
+<script src="{% static 'home/js/jquery.ajaxchimp.min.js' %}"></script>
+
+<!-- Jquery Plugins, main Jquery -->
+<script src=".{% static 'home/js/plugins.js' %}"></script>
+<script src="{% static 'home/js/main.js' %}"></script>
 </body>
 </html>

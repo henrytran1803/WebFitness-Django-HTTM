@@ -2,6 +2,13 @@ body{margin-top:20px;
 background-color:#f2f6fc;
 color:#69707a;
 }
+.form-container {
+    position: absolute;
+    background-color: #f8f8f8;
+    padding: 20px;
+    margin-top: 20px; /* Tạo khoảng cách giữa header và biểu mẫu */
+}
+
 .img-account-profile {
     height: 10rem;
 }
