@@ -164,6 +164,7 @@ class DetailEatTrack(models.Model):
     product = models.ForeignKey('Products', models.DO_NOTHING, db_column='product')
     serving_size = models.FloatField(blank=True, null=True)
     calories = models.FloatField(blank=True, null=True)
+    id_uk = models.AutoField()
 
     class Meta:
         managed = False
@@ -229,9 +230,9 @@ class EatTrack(models.Model):
 
 
 class Nutritions(models.Model):
-    nutrition_id = models.CharField(primary_key=True, max_length=15, db_collation='SQL_Latin1_General_CP1_CI_AS')
+    nutrition = models.OneToOneField('Products', models.DO_NOTHING, primary_key=True)
     carbohydrates_100g = models.FloatField(blank=True, null=True)
-    energy_kcal_100g = models.FloatField(db_column='energy-kcal_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
+    energy_kcal_100g = models.FloatField(blank=True, null=True)
     fat_100g = models.FloatField(blank=True, null=True)
     proteins_100g = models.FloatField(blank=True, null=True)
     sugars_100g = models.FloatField(blank=True, null=True)
@@ -243,7 +244,7 @@ class Nutritions(models.Model):
 
 
 class Products(models.Model):
-    barcode = models.OneToOneField(Nutritions, models.DO_NOTHING, db_column='barcode', primary_key=True)
+    barcode = models.CharField(primary_key=True, max_length=15, db_collation='SQL_Latin1_General_CP1_CI_AS')
     brand = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
     product_name = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)
     image_url = models.CharField(max_length=255, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)

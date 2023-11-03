@@ -51,15 +51,14 @@ class Exercisetype(models.Model):
 
 
 class ExerciseSuggestions(models.Model):
-    user_pred = models.OneToOneField('UserPred', models.DO_NOTHING, db_column='user_pred', primary_key=True)  # The composite primary key (user_pred, ExerciseId) found, that is not supported. The first column is selected.
-    exerciseid = models.ForeignKey('Exercises', models.DO_NOTHING, db_column='ExerciseId')  # Field name made lowercase.
-    reps = models.IntegerField(db_column='Reps', blank=True, null=True)  # Field name made lowercase.
-    sets = models.IntegerField(db_column='Sets', blank=True, null=True)  # Field name made lowercase.
+    user_pred = models.OneToOneField('UserPred', models.DO_NOTHING, db_column='user_pred', primary_key=True)
+    label = models.IntegerField(blank=True, null=True)
+    exercise_type = models.IntegerField(blank=True, null=True)
+    exercise_difficulty = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'Exercise_suggestions'
-        unique_together = (('user_pred', 'exerciseid'),)
 
 
 class Exercises(models.Model):
@@ -69,7 +68,7 @@ class Exercises(models.Model):
     exercisetype = models.ForeignKey(Exercisetype, models.DO_NOTHING, db_column='ExerciseType', blank=True, null=True)  # Field name made lowercase.
     equipmentneeded = models.ForeignKey(Equipmentneeded, models.DO_NOTHING, db_column='EquipmentNeeded', blank=True, null=True)  # Field name made lowercase.
     description = models.TextField(db_column='Description', db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase. This field type is a guess.
-    difficultylevel = models.CharField(db_column='DifficultyLevel', max_length=20, db_collation='SQL_Latin1_General_CP1_CI_AS', blank=True, null=True)  # Field name made lowercase.
+    difficultylevel = models.IntegerField(db_column='DifficultyLevel', blank=True, null=True)  # Field name made lowercase.
     repetitions = models.IntegerField(db_column='Repetitions', blank=True, null=True)  # Field name made lowercase.
     sets = models.IntegerField(db_column='Sets', blank=True, null=True)  # Field name made lowercase.
     durationinseconds = models.IntegerField(db_column='DurationInSeconds', blank=True, null=True)  # Field name made lowercase.
@@ -161,10 +160,11 @@ class AuthUserUserPermissions(models.Model):
 
 
 class DetailEatTrack(models.Model):
-    id = models.OneToOneField('EatTrack', models.DO_NOTHING, db_column='id', primary_key=True)  # The composite primary key (id, product) found, that is not supported. The first column is selected.
+    id = models.OneToOneField('EatTrack', models.DO_NOTHING, db_column='id')  # The composite primary key (id, product) found, that is not supported. The first column is selected.
     product = models.ForeignKey('Products', models.DO_NOTHING, db_column='product')
     serving_size = models.FloatField(blank=True, null=True)
     calories = models.FloatField(blank=True, null=True)
+    id_uk = models.AutoField(primary_key=True)
 
     class Meta:
         managed = False
@@ -219,7 +219,7 @@ class DjangoSession(models.Model):
 
 class EatTrack(models.Model):
     track_id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(AuthUser, models.DO_NOTHING)
+    user = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
     date = models.DateTimeField()
     total = models.FloatField(blank=True, null=True)
 
@@ -230,20 +230,18 @@ class EatTrack(models.Model):
 
 
 class Nutritions(models.Model):
-    nutrition_id = models.CharField(primary_key=True, max_length=15, db_collation='SQL_Latin1_General_CP1_CI_AS')
+    nutrition = models.OneToOneField('Products', models.DO_NOTHING, primary_key=True)
     carbohydrates_100g = models.FloatField(blank=True, null=True)
-    energy_kcal_100g = models.FloatField(db_column='energy-kcal_100g', blank=True, null=True)
+    energy_kcal_100g = models.FloatField(db_column='energy_kcal_100g', blank=True, null=True)  # Field renamed to remove unsuitable characters.
     fat_100g = models.FloatField(blank=True, null=True)
     proteins_100g = models.FloatField(blank=True, null=True)
     sugars_100g = models.FloatField(blank=True, null=True)
     sodium_100g = models.FloatField(blank=True, null=True)
 
-    # Tạo khóa ngoại ngược lại từ Nutritions đến Products
-    product = models.OneToOneField('Products', on_delete=models.CASCADE, related_name='nutrition')
-
     class Meta:
         managed = False
         db_table = 'nutritions'
+
 
 class Products(models.Model):
     barcode = models.CharField(primary_key=True, max_length=15, db_collation='SQL_Latin1_General_CP1_CI_AS')

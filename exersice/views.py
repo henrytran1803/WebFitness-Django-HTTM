@@ -19,6 +19,7 @@ def exercise_detail(request, exercise_id, page_number):
     return render(request, 'exersice/detailsEx.html', {'exercise': exercise, 'page_number': page_number})
 from django.contrib.auth.decorators import login_required
 
+
 @login_required
 def predict_label(request, page_number):
     model_path = settings.BASE_DIR / 'model' / 'RandomForestRegressor.joblib'
@@ -54,17 +55,23 @@ def predict_label(request, page_number):
         predicted_label_rounded = np.round(predicted_label).astype(int)
         rounded_label = predicted_label_rounded[0]
         result = f"Predicted Label: {rounded_label}"
-        ExerciseSuggestions.objects.update_or_create(
+
+        # Tạo một bản ghi mới trong ExerciseSuggestions
+        suggestion = ExerciseSuggestions(
             user_pred=latest_user_pred,
-            defaults={'label': rounded_label}
+            label=rounded_label,
         )
+        suggestion.save()
 
     exercises = Exercises.objects.filter(exercisetype=exercise_type, difficultylevel=exercise_difficulty)
+
     total_exercises = exercises.count()
+
+    page = None  # Đặt page thành None ngay từ đầu
 
     # Ensure that there are enough exercises to paginate
     if total_exercises > 0:
-        exercises_per_page = 10  # You can adjust this as needed
+        exercises_per_page = 10  # Xác định exercises_per_page
 
         total_pages = (total_exercises + exercises_per_page - 1) // exercises_per_page
 
@@ -80,11 +87,10 @@ def predict_label(request, page_number):
 
         # Get the exercises for the current page
         page_exercises = exercises[start_index:end_index]
-    else:
-        page_exercises = None
 
-    paginator = Paginator(page_exercises, exercises_per_page)
-    page = paginator.get_page(page_number)
+        paginator = Paginator(page_exercises, exercises_per_page)
+        page = paginator.get_page(page_number)
 
     return render(request, 'exersice/exersice.html', {'page': page})
+
 

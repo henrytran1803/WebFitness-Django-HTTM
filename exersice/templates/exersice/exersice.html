@@ -3,10 +3,10 @@
 <html>
 <head>
     <title>Exercise</title>
-<meta name="description" content="">
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/img/favicon.ico'%}">
             <style>
         /* Định nghĩa các kiểu CSS bên trong thẻ style */
         .sliderform{
@@ -126,7 +126,8 @@
                         </div>
                         {% if request.session.is_logged_in %}
                         <div class="header-btns d-none d-lg-block f-right">
-                            <h3>Welcome</h3>
+                                                        <h3 style="color: white; font-size: 30px; border: black;">Welcome</h3>
+
                        </div>
                             {% else %}
                             <div class="header-btns d-none d-lg-block f-right">
@@ -142,15 +143,20 @@
         </div>
     </div>
     <!-- Header End -->
-</header>
-                    <div class="container">
+</header><div class="container">
     <div class="sliderform">
-    <h1>Danh Sách Bài Tập</h1>
+    <h1 style="color: darkred; font-size: 30px">Danh Sách Bài Tập</h1>
     <ul>
+        {% if page %}
             {% for exercise in page %}
                 <li><a href="{% url 'exercise_detail'  exercise_id=exercise.exerciseid page_number=page.number %}">{{ exercise.exercisename }}</a></li>
             {% endfor %}
-
+        {% else %}
+            <li>Nhấn vào đây load lại để được hiển thị theo boddyfat của bạn nhé.</li>
+            <a href="{% url 'predict_label' page_number=1 %}">
+                <input class="btn btn-outline-dark" type="submit" value="Tra Cứu">
+            </a>
+        {% endif %}
     </ul>
     <div class="pagination">
         <span class="step-links">
@@ -170,7 +176,8 @@
         </span>
     </div>
     </div>
-                    </div>
+</div>
+
 <footer>
     <!--? Footer Start-->
     <div class="footer-area black-bg">

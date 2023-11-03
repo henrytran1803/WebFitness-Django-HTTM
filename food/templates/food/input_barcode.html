@@ -2,8 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Food </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/img/favicon.ico'%}">
         <style>
         .sliderform{
              margin-top: 100px;
@@ -111,7 +116,8 @@
                         </div>
                         {% if request.session.is_logged_in %}
                         <div class="header-btns d-none d-lg-block f-right">
-                            <h3>Welcome</h3>
+                                                        <h3 style="color: white; font-size: 30px; border: black;">Welcome</h3>
+
                        </div>
                             {% else %}
                             <div class="header-btns d-none d-lg-block f-right">
@@ -132,13 +138,12 @@
     <div class="sliderform">
  <form method="post">
         {% csrf_token %}
-        <label for="barcode">Nhập Mã Vạch:</label>
-        <input type="text" name="barcode" id="barcode">
-        <input type="submit" value="Tra Cứu">
+        <label style="font-size: 30px;color: white; padding: 18px 44px;" for="barcode">Nhập Mã Vạch:</label>
+        <input style="  padding: 12px 44px; font-size: 20px;" type="text" name="barcode" id="barcode">
+        <input class="btn btn-outline-dark" type="submit" value="Tra Cứu">
     </form>
-<h1>Search Results</h1>
-<ul>
-<input type="text" id="searchInput" placeholder="Search for products...">
+<h1 style="color: white">Tìm kiếm thức ăn</h1>
+<input style="  padding: 12px 44px; font-size: 20px" type="text" id="searchInput" placeholder="Search for products...">
 
 <table>
     <thead>
@@ -180,9 +185,8 @@ document.getElementById('searchInput').addEventListener('input', function() {
 });
 </script>
 
-</ul>
 
-<div class="pagination">
+<div class="pagination" style="font-size: 15px">
     <span class="step-links">
         {% if products.has_previous %}
             <a href="?page=1">&laquo; first</a>

@@ -21,7 +21,8 @@ def user(request):
     fistname = request.session.get('first_name')
     lastname = request.session.get('last_name')
     user_id = request.session.get('user_id')
-
+    lastBodymeasurements = None
+    lastBodyUserPred = None
     if user_id is not None:
         user = AuthUser.objects.filter(id=user_id).first()
 
@@ -30,12 +31,15 @@ def user(request):
         else:
             username = None  # Handle the case where the user with the specified ID is not found
 
-        lastBodymeasurements = Bodymeasurements.objects.filter(userid=user_id).latest('measurementdate')
+        # Kiểm tra xem có Bodymeasurements phù hợp với user_id không
+        body_measurements = Bodymeasurements.objects.filter(userid=user_id).order_by('-measurementdate')
+        if body_measurements.exists():
+            lastBodymeasurements = body_measurements.first()
 
         if lastBodymeasurements is not None:
             lastBodyUserPred = UserPred.objects.filter(body=lastBodymeasurements.id).latest('date')
         else:
-            lastBodyUserPred = None  # Handle the case where lastBodymeasurements is None
+            lastBodyUserPred = None  # H
     else:
         # Handle the case where user_id is None
         username = None

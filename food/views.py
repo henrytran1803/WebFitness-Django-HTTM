@@ -10,6 +10,7 @@ from django.shortcuts import get_object_or_404
 def info(request, barcode):
     product = get_object_or_404(Products, barcode=barcode)
     nutrition = product.barcode
+    request.session['barcode']=product.barcode
     return render(request, 'food/food_info.html', {'product': product, 'nutrition': nutrition})
 
 def food(request):
@@ -27,25 +28,46 @@ def food(request):
             if response.status_code == 200:
                 product_data = response.json()
                 if 'product' in product_data:
-                    nutrition, created = Nutritions.objects.get_or_create(
-                        nutrition_id=barcode,
-                        defaults={
-                            'carbohydrates_100g': product_data['product']['nutriments']['carbohydrates_100g'],
-                            'energy_kcal_100g': product_data['product']['nutriments']['energy-kcal_100g'],
-                            'fat_100g': product_data['product']['nutriments']['fat_100g'],
-                            'proteins_100g': product_data['product']['nutriments']['proteins_100g'],
-                            'sugars_100g': product_data['product']['nutriments']['sugars_100g'],
-                            'sodium_100g': product_data['product']['nutriments']['sodium_100g'],
-                        }
-                    )
+                    carbohydrates_100g = product_data['product']['nutriments'].get('carbohydrates_100g', None)
+                    energy_kcal_100g = product_data['product']['nutriments'].get('energy-kcal_100g', None)
+                    fat_100g = product_data['product']['nutriments'].get('fat_100g', None)
+                    proteins_100g = product_data['product']['nutriments'].get('proteins_100g', None)
+                    sugars_100g = product_data['product']['nutriments'].get('sugars_100g', None)
+                    sodium_100g = product_data['product']['nutriments'].get('sodium_100g', None)
+                    if carbohydrates_100g is None:
+                        carbohydrates_100g = 0
+                    if energy_kcal_100g is None:
+                        energy_kcal_100g = 0
+                    if fat_100g is None:
+                        fat_100g = 0
+                    if proteins_100g is None:
+                        proteins_100g = 0
+                    if sugars_100g is None:
+                        sugars_100g = 0
+                    if sodium_100g is None:
+                        sodium_100g = 0
                     product, created = Products.objects.get_or_create(
-                        barcode=nutrition,
+                        barcode=barcode,
                         defaults={
                             'product_name': product_data['product']['product_name'],
                             'brand': product_data['product']['product_name'],
                             'image_url': product_data['product']['image_front_small_url'],
                         }
                     )
+
+                    # Lưu trữ khóa chính (barcode) của sản phẩm trong trường nutrition_id
+                    nutrition, created = Nutritions.objects.get_or_create(
+                        nutrition_id=product.barcode,
+                        defaults={
+                            'carbohydrates_100g': carbohydrates_100g,
+                            'energy_kcal_100g': energy_kcal_100g,
+                            'fat_100g': fat_100g,
+                            'proteins_100g': proteins_100g,
+                            'sugars_100g': sugars_100g,
+                            'sodium_100g': sodium_100g,
+                        }
+                    )
+
                     return render(request, 'food/food_info.html', {'product': product, 'nutrition': nutrition, 'barcode': barcode})
                 else:
                     return HttpResponseNotFound('Không tìm thấy thông tin sản phẩm')
@@ -69,42 +91,49 @@ def tracking(request):
     user_id = request.user.id
     eat_tracks = EatTrack.objects.filter(user_id=user_id)
     return render(request, 'food/tracking.html', {'eat_tracks': eat_tracks})
+
+
+
+
 def eat_track_detail(request, track_id):
+    # Lấy một EatTrack cụ thể bằng trường track_id
     eat_track = get_object_or_404(EatTrack, track_id=track_id)
-    detail_eat_tracks = DetailEatTrack.objects.filter(id=eat_track.track_id)
-    if not detail_eat_tracks:
-        no_detail_eat_tracks = True
-    else:
-        no_detail_eat_tracks = False
-    return render(request, 'food/eat_track_detail.html', {'eat_track': eat_track, 'detail_eat_tracks': detail_eat_tracks, 'no_detail_eat_tracks': no_detail_eat_tracks})
+
+    # Truy vấn tất cả các DetailEatTrack liên quan đến EatTrack
+    detail_eat_tracks = DetailEatTrack.objects.filter(id=eat_track)
+
+    return render(request, 'food/eat_track_detail.html',
+                  {'eat_track': eat_track, 'detail_eat_tracks': detail_eat_tracks})
+
+
+
 def detail(request):
     if request.method == 'POST':
-        serving_sizes = request.POST.get('serving')
-        barcode = request.session['barcode']  # Assuming it's a single barcode
-        print(barcode)
+        serving_size = request.POST.get('serving')
+        barcode = request.session['barcode']
         user_id = request.session.get('user_id')
-        print(serving_sizes, barcode, user_id)
+        today = date.today()
+        user = AuthUser.objects.filter(id=user_id).first()
+
         try:
-            today = date.today()
-            user = AuthUser.objects.filter(id=user_id).first()
-            try:
-                eat_track = EatTrack.objects.get(user=user, date=today)
-            except EatTrack.DoesNotExist:
-                eat_track = EatTrack(user=user, date=today)
-                eat_track.save()
-            serving_size =float(serving_sizes)
+            eat_track = EatTrack.objects.get(user=user, date=today)
+        except EatTrack.DoesNotExist:
+            eat_track = EatTrack(user=user, date=today)
+            eat_track.save()
 
-            try:
-                product_instance = Products.objects.get(barcode=barcode)
-            except Products.DoesNotExist:
-                print(f"Product with barcode {barcode} does not exist.")
-                return HttpResponseServerError(f"Product with barcode {barcode} does not exist.")
+        serving_size = float(serving_size)
+        product_instance = get_object_or_404(Products, barcode=barcode)
 
-            detail_eat_track, created = DetailEatTrack.objects.get_or_create(id=eat_track, product=product_instance)
+        try:
+            # Kiểm tra tổ hợp khóa (id, product) trong bảng DetailEatTrack
+            detail_eat_track = DetailEatTrack.objects.get(id=eat_track, product=product_instance)
+            # Bản ghi đã tồn tại, cập nhật serving_size
             detail_eat_track.serving_size = serving_size
             detail_eat_track.save()
+        except DetailEatTrack.DoesNotExist:
+            # Bản ghi không tồn tại, tạo mới
+            detail_eat_track = DetailEatTrack(id=eat_track, product=product_instance, serving_size=serving_size)
+            detail_eat_track.save()
 
-            return HttpResponseRedirect(reverse('eat_track_detail', args=[eat_track.track_id]))
-        except Exception as e:
-            return HttpResponseServerError('Có lỗi xảy ra: ' + str(e))
+        return HttpResponseRedirect(reverse('eat_track_detail', args=[eat_track.track_id]))
     return render(request, 'food/tracking.html')

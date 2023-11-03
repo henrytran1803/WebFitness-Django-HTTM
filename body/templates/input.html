@@ -1,15 +1,15 @@
-    {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html>
-<head>
-            <meta charset="utf-8">
+    <head>
+    <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Gym suport </title>
+    <title>Body </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.ico">
-            <style>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/img/favicon.ico'%}">
+        <style>
         /* Định nghĩa các kiểu CSS bên trong thẻ style */
         .sliderform{
              margin-top: 100px;
@@ -31,22 +31,27 @@
             }
 
     </style>
-    <!-- CSS here -->
-    <link rel="stylesheet" href="{% static 'body/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'body/css/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href=".{% static 'body/css/slicknav.css' %}">
-    <link rel="stylesheet" href="{% static 'body/css/flaticon.css' %}">
-    <link rel="stylesheet" href="{% static 'body/css/gijgo.css' %}">
-    <link rel="stylesheet" href=".{% static 'body/css/animate.min.css' %}">
-    <link rel="stylesheet" href="{% static 'body/css/animated-headline.css' %}">
-    <link rel="stylesheet" href="{% static 'body/css/magnific-popup.css' %}">
-    <link rel="stylesheet" href="{% static 'body/css/fontawesome-all.min.css' %}">
-    <link rel="stylesheet" href="{% static 'body/css/themify-icons.css' %}">
-    <link rel="stylesheet" href="{% static 'body/css/slick.css' %}">
-    <link rel="stylesheet" href="{% static 'body/css/nice-select.css' %}">
-    <link rel="stylesheet" href="{% static 'body/css/style.css' %}">
-    <title>Body</title>
-    <style>
+        <!-- CSS here -->
+        <link rel="stylesheet"
+            href="{% static 'home/css/user_information.css' %}">
+        <link rel="stylesheet" href="{% static 'body/css/bootstrap.min.css' %}">
+        <link rel="stylesheet"
+            href="{% static 'body/css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" href=".{% static 'body/css/slicknav.css' %}">
+        <link rel="stylesheet" href="{% static 'body/css/flaticon.css' %}">
+        <link rel="stylesheet" href="{% static 'body/css/gijgo.css' %}">
+        <link rel="stylesheet" href=".{% static 'body/css/animate.min.css' %}">
+        <link rel="stylesheet"
+            href="{% static 'body/css/animated-headline.css' %}">
+        <link rel="stylesheet" href="{% static 'body/css/magnific-popup.css' %}">
+        <link rel="stylesheet"
+            href="{% static 'body/css/fontawesome-all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'body/css/themify-icons.css' %}">
+        <link rel="stylesheet" href="{% static 'body/css/slick.css' %}">
+        <link rel="stylesheet" href="{% static 'body/css/nice-select.css' %}">
+        <link rel="stylesheet" href="{% static 'body/css/style.css' %}">
+        <title>Body</title>
+        <style>
   .form-container {
     display: flex;
     align-items: center;
@@ -61,254 +66,354 @@
     text-align: right;
   }
 </style>
-</head>
-<body class="black-bg">
-<div id="preloader-active">
-        <div class="preloader d-flex align-items-center justify-content-center">
-            <div class="preloader-inner position-relative">
-                <div class="preloader-circle"></div>
-                <div class="preloader-img pere-text">
-                    <img src="../../static/img/logo/loder.png" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-     <header>
-        <!-- Header Start -->
-        <div class="header-area header-transparent">
-            <div class="main-header header-sticky">
-                <div class="container-fluid">
-                    <div class="menu-wrapper d-flex align-items-center justify-content-between">
-                        <!-- Logo -->
-                        <div class="logo">
-                            <a href="index.html"><img src="../../static/img/logo/logo.png" alt=""></a>
-                        </div>
-                        <!-- Main-menu -->
-                        <div class="main-menu f-right d-none d-lg-block">
-                            <nav>
-                                {% if request.session.is_logged_in %}
-                                <ul id="navigation">
-                                    <li><a href="{% url 'index' %}">Home</a></li>
-                                    <li><a href="{% url 'body' %}">Body</a></li>
-                                    <li><a href="{% url 'food' %}">Food</a></li>
-                                    <li><a href="{% url 'track' %}">Tracking</a></li>
-                                    <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
-                                    <li><a href="{% url 'predict_label' page_number=1 %}">Suggestion</a></li>
-                                    <li><a href="{% url 'blog' %}">Blog</a>
-                                        <ul class="submenu">
-                                            <li><a href="{% url 'blog' %}">Blog</a></li>
-                                            <li><a href="{% url 'blog_details' %}">Blog Details</a></li>
-                                            <li><a href="{% url 'elements' %}">Elements</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                {% else %}
-                                    <ul id="navigation">
-                                    <li><a href="{% url 'login' %}">Home</a></li>
-                                    <li><a href="{% url 'login' %}">Body</a></li>
-                                    <li><a href="{% url 'login' %}">Food</a></li>
-                                    <li><a href="{% url 'login' %}">Exersice</a></li>
-                                    <li><a href="{% url 'login' %}">Blog</a>
-                                        <ul class="submenu">
-                                            <li><a href="{% url 'login' %}">Blog</a></li>
-                                            <li><a href="{% url 'login' %}">Blog Details</a></li>
-                                            <li><a href="{% url 'login' %}">Elements</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                {% endif %}
-                            </nav>
-                        </div>
-                        {% if request.session.is_logged_in %}
-                        <div class="header-btns d-none d-lg-block f-right">
-                            <h3>Welcome</h3>
-                       </div>
-                            {% else %}
-                            <div class="header-btns d-none d-lg-block f-right">
-                           <a href="{% url 'signup' %}" class="btn">Sign up free</a>
-                       </div>
-                        {% endif %}
-                       <!-- Mobile Menu -->
-                       <div class="col-12">
-                        <div class="mobile_menu d-block d-lg-none"></div>
+    </head>
+    <body class="black-bg">
+        <div id="preloader-active">
+            <div
+                class="preloader d-flex align-items-center justify-content-center">
+                <div class="preloader-inner position-relative">
+                    <div class="preloader-circle"></div>
+                    <div class="preloader-img pere-text">
+                        <img src="../../static/img/logo/loder.png" alt>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Header End -->
-</header>
-                 <div class="container">
-    <div class="sliderform">
-    <h1 style="color: white;">Enter Body Metrics</h1>
-    <div class="form-container">
-    <form action="" method="post">
-        {% csrf_token %}
-        <label for="BodyFatEncoded">BodyFatEncoded:</label>
-        <input type="text" id="BodyFatEncoded" name="BodyFatEncoded"><br><br>
-        <label for="Age">Age:</label>
-        <input type="text" id="Age" name="Age"><br><br>
-
-        <label for="Weight">Weight:</label>
-        <input type="text" id="Weight" name="Weight"><br><br>
-
-        <label for="Height">Height:</label>
-        <input type="text" id="Height" name="Height"><br><br>
-
-        <label for="Neck">Neck:</label>
-        <input type="text" id="Neck" name="Neck"><br><br>
-
-        <label for="Chest">Chest:</label>
-        <input type="text" id="Chest" name="Chest"><br><br>
-
-        <label for="Abdomen">Abdomen:</label>
-        <input type="text" id="Abdomen" name="Abdomen"><br><br>
-
-        <label for="Hip">Hip:</label>
-        <input type="text" id="Hip" name="Hip"><br><br>
-
-        <label for="Thigh">Thigh:</label>
-        <input type="text" id="Thigh" name="Thigh"><br><br>
-
-        <label for="Knee">Knee:</label>
-        <input type="text" id="Knee" name="Knee"><br><br>
-
-        <label for="Ankle">Ankle:</label>
-        <input type="text" id="Ankle" name="Ankle"><br><br>
-
-        <label for="Biceps">Biceps:</label>
-        <input type="text" id="Biceps" name="Biceps"><br><br>
-
-        <label for="Forearm">Forearm:</label>
-        <input type="text" id="Forearm" name="Forearm"><br><br>
-
-        <label for="Wrist">Wrist:</label>
-        <input type="text" id="Wrist" name="Wrist"><br><br>
-<div class="custom-select-container">
-    <label for="ActivityLevel">Activity Level:</label>
-    <select id="ActivityLevel" name="ActivityLevel" class="custom-select">
-        <option value="1.2">Sedentary (Little or no exercise)</option>
-        <option value="1.375">Lightly active (Light exercise or sports 1-3 days a week)</option>
-        <option value="1.55">Moderately active (Moderate exercise or sports 3-5 days a week)</option>
-        <option value="1.725">Very active (Hard exercise or sports 6-7 days a week)</option>
-        <option value="1.9">Super active (Very hard exercise, physical job, or training twice a day)</option>
-    </select>
-</div>
-
-
-
-            <button class="btn btn-primary custom-submit" type="submit" >submit</button>
-            </form>
-        <div class="image">
-
-    <img src="{% static 'body/img/bdfimg.png' %}" alt="My image" style="width: 800px; height: auto;">
-  </div>
-    </div>
-    </div>
-                 </div>
-
-<footer>
-    <!--? Footer Start-->
-    <div class="footer-area black-bg">
-        <div class="container">
-            <div class="footer-top footer-padding">
-                <!-- Footer Menu -->
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="single-footer-caption mb-50 text-center">
-                            <!-- logo -->
-                            <div class="footer-logo wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s">
-                                <a href="index.html"><img src="../../static/img/logo/logo2_footer.png" alt=""></a>
+        <header>
+            <!-- Header Start -->
+            <div class="header-area header-transparent">
+                <div class="main-header header-sticky">
+                    <div class="container-fluid">
+                        <div
+                            class="menu-wrapper d-flex align-items-center justify-content-between">
+                            <!-- Logo -->
+                            <div class="logo">
+                                <a href="index.html"><img
+                                        src="../../static/img/logo/logo.png" alt></a>
                             </div>
-                            <!-- Menu -->
-                            <!-- Header Start -->
-                            <div class="header-area main-header2 wow fadeInUp" data-wow-duration="2s" data-wow-delay=".4s">
-                                <div class="main-header main-header2">
-                                    <div class="menu-wrapper menu-wrapper2">
-                                        <!-- Main-menu -->
-                                        <div class="main-menu main-menu2 text-center">
-                                            <nav>
-                                                <ul>
-                                                    <li><a href="{% url 'index' %}">Home</a></li>
-                                                    <li><a href="{% url 'body' %}">Body</a></li>
-                                                    <li><a href="{% url 'food' %}">Food</a></li>
-                                                    <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
-                                                    <li><a href="{% url 'index' %}">Contact</a></li>
-                                                </ul>
-                                            </nav>
+                            <!-- Main-menu -->
+                            <div class="main-menu f-right d-none d-lg-block">
+                                <nav>
+                                    {% if request.session.is_logged_in %}
+                                    <ul id="navigation">
+                                        <li><a href="{% url 'index' %}">Home</a></li>
+                                        <li><a href="{% url 'body' %}">Body</a></li>
+                                        <li><a href="{% url 'food' %}">Food</a></li>
+                                        <li><a href="{% url 'track' %}">Tracking</a></li>
+                                        <li><a
+                                                href="{% url 'exersice' page_number=1%}">Exersice</a></li>
+                                        <li><a
+                                                href="{% url 'predict_label' page_number=1 %}">Suggestion</a></li>
+                                        <li><a href="{% url 'blog' %}">Blog</a>
+                                            <ul class="submenu">
+                                                <li><a href="{% url 'blog' %}">Blog</a></li>
+                                                <li><a
+                                                        href="{% url 'blog_details' %}">Blog
+                                                        Details</a></li>
+                                                <li><a
+                                                        href="{% url 'elements' %}">Elements</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    {% else %}
+                                    <ul id="navigation">
+                                        <li><a href="{% url 'login' %}">Home</a></li>
+                                        <li><a href="{% url 'login' %}">Body</a></li>
+                                        <li><a href="{% url 'login' %}">Food</a></li>
+                                        <li><a href="{% url 'login' %}">Exersice</a></li>
+                                        <li><a href="{% url 'login' %}">Blog</a>
+                                            <ul class="submenu">
+                                                <li><a href="{% url 'login' %}">Blog</a></li>
+                                                <li><a href="{% url 'login' %}">Blog
+                                                        Details</a></li>
+                                                <li><a href="{% url 'login' %}">Elements</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    {% endif %}
+                                </nav>
+                            </div>
+                            {% if request.session.is_logged_in %}
+                            <div class="header-btns d-none d-lg-block f-right">
+                                                            <h3 style="color: white; font-size: 30px; border: black;">Welcome</h3>
+
+                            </div>
+                            {% else %}
+                            <div class="header-btns d-none d-lg-block f-right">
+                                <a href="{% url 'signup' %}" class="btn">Sign up
+                                    free</a>
+                            </div>
+                            {% endif %}
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Header End -->
+        </header>
+        <div class="container">
+            <div class="sliderform">
+                <h1 style="color: white;">Enter Body Metrics</h1>
+                <div class="form-container">
+                    <form action method="post">
+                        {% csrf_token %}
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="BodyFatEncoded">BodyFatEncoded:</label>
+                                <input class="form-control" type="text"
+                                    id="BodyFatEncoded" name="BodyFatEncoded"><br><br>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Age">Age:</label>
+                                <input class="form-control" type="text" id="Age"
+                                    name="Age"><br><br>
+                            </div>
+                            `</div>
+
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Weight">Weight:</label>
+                                <input class="form-control" type="text"
+                                    id="Weight" name="Weight"><br><br>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Height">Height:</label>
+                                <input class="form-control" type="text"
+                                    id="Height"
+                                    name="Height"><br><br>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Neck">Neck:</label>
+                                <input class="form-control" type="text"
+                                    id="Neck" name="Neck"><br><br>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Chest">Chest:</label>
+                                <input class="form-control" type="text"
+                                    id="Chest" name="Chest"><br><br>
+                            </div></div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Abdomen">Abdomen:</label>
+                                <input class="form-control" type="text"
+                                    id="Abdomen" name="Abdomen"><br><br>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Hip">Hip:</label>
+                                <input class="form-control" type="text" id="Hip"
+                                    name="Hip"><br><br>
+                            </div></div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Thigh">Thigh:</label>
+                                <input class="form-control" type="text"
+                                    id="Thigh" name="Thigh"><br><br>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Knee">Knee:</label>
+                                <input class="form-control" type="text"
+                                    id="Knee" name="Knee"><br><br>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Ankle">Ankle:</label>
+                                <input class="form-control" type="text"
+                                    id="Ankle" name="Ankle"><br><br>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Biceps">Biceps:</label>
+                                <input class="form-control" type="text"
+                                    id="Biceps" name="Biceps"><br><br>
+                            </div>
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Forearm">Forearm:</label>
+                                <input class="form-control" type="text"
+                                    id="Forearm" name="Forearm"><br><br>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="Wrist">Wrist:</label>
+                                <input class="form-control" type="text"
+                                    id="Wrist" name="Wrist"><br><br>
+                            </div>
+                        </div>
+                        <div class="custom-select-container">
+                            <div class="col-md-6">
+                            <label class="small mb-1"
+                                for="ActivityLevel">Activity Level:</label>
+                            <select id="ActivityLevel"
+                                name="ActivityLevel"
+                                class="custom-select">
+                                <option value="1.2">Sedentary (Little or
+                                    no exercise)</option>
+                                <option value="1.375">Lightly active
+                                    (Light exercise or sports 1-3 days a
+                                    week)</option>
+                                <option value="1.55">Moderately active
+                                    (Moderate exercise or sports 3-5
+                                    days a week)</option>
+                                <option value="1.725">Very active (Hard
+                                    exercise or sports 6-7 days a week)</option>
+                                <option value="1.9">Super active (Very
+                                    hard exercise, physical job, or
+                                    training twice a day)</option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary custom-submit"
+                            type="submit">submit</button>
+                    </form>
+                    <div class="image">
+
+                        <img src="{% static 'body/img/bdfimg.png' %}"
+                            alt="My image"
+                            style="width: 500px; height: auto; top:10%;position: absolute;right:1%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <!--? Footer Start-->
+            <div class="footer-area black-bg">
+                <div class="container">
+                    <div class="footer-top footer-padding">
+                        <!-- Footer Menu -->
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div
+                                    class="single-footer-caption mb-50 text-center">
+                                    <!-- logo -->
+                                    <div
+                                        class="footer-logo wow fadeInUp"
+                                        data-wow-duration="1s"
+                                        data-wow-delay=".2s">
+                                        <a href="index.html"><img
+                                                src="../../static/img/logo/logo2_footer.png"
+                                                alt></a>
+                                    </div>
+                                    <!-- Menu -->
+                                    <!-- Header Start -->
+                                    <div
+                                        class="header-area main-header2 wow fadeInUp"
+                                        data-wow-duration="2s"
+                                        data-wow-delay=".4s">
+                                        <div
+                                            class="main-header main-header2">
+                                            <div
+                                                class="menu-wrapper menu-wrapper2">
+                                                <!-- Main-menu -->
+                                                <div
+                                                    class="main-menu main-menu2 text-center">
+                                                    <nav>
+                                                        <ul>
+                                                            <li><a
+                                                                    href="{% url 'index' %}">Home</a></li>
+                                                            <li><a
+                                                                    href="{% url 'body' %}">Body</a></li>
+                                                            <li><a
+                                                                    href="{% url 'food' %}">Food</a></li>
+                                                            <li><a
+                                                                    href="{% url 'exersice' page_number=1%}">Exersice</a></li>
+                                                            <li><a
+                                                                    href="{% url 'index' %}">Contact</a></li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
                                         </div>
+                                    </div>
+                                    <!-- Header End -->
+                                    <!-- social -->
+                                    <div
+                                        class="footer-social mt-30 wow fadeInUp"
+                                        data-wow-duration="3s"
+                                        data-wow-delay=".8s">
+                                        <a href="#"><i
+                                                class="fab fa-twitter"></i></a>
+                                        <a href="https://bit.ly/sai4ull"><i
+                                                class="fab fa-facebook-f"></i></a>
+                                        <a href="#"><i
+                                                class="fab fa-pinterest-p"></i></a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Header End -->
-                            <!-- social -->
-                            <div class="footer-social mt-30 wow fadeInUp" data-wow-duration="3s" data-wow-delay=".8s">
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        </div>
+                    </div>
+                    <!-- Footer Bottom -->
+                    <div class="footer-bottom">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-lg-12">
+                                <div
+                                    class="footer-copy-right text-center">
+                                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                                        TranVietAnh <i
+                                            class="fa fa-heart"
+                                            aria-hidden="true"></i> by
+                                        <a href target="_blank">Anh</a>
+                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Footer Bottom -->
-            <div class="footer-bottom">
-                <div class="row d-flex align-items-center">
-                    <div class="col-lg-12">
-                        <div class="footer-copy-right text-center">
-                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                              Copyright &copy;<script>document.write(new Date().getFullYear());</script> TranVietAnh <i class="fa fa-heart" aria-hidden="true"></i> by <a href="" target="_blank">Anh</a>
-                              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- Footer End-->
-  </footer>
-  <!-- Scroll Up -->
-  <div id="back-top" >
-    <a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
-</div>
+            <!-- Footer End-->
+        </footer>
+        <!-- Scroll Up -->
+        <div id="back-top">
+            <a title="Go to Top" href="#"> <i
+                    class="fas fa-level-up-alt"></i></a>
+        </div>
 
-<script src="{% static 'body/js/vendor/modernizr-3.5.0.min.js' %}"></script>
-<!-- Jquery, Popper, Bootstrap -->
-<script src="{% static 'body/js/vendor/jquery-1.12.4.min.js' %}"></script>
-<script src="{% static 'body/js/popper.min.js' %}"></script>
-<script src="{% static 'body/js/bootstrap.min.js' %}"></script>
-<!-- Jquery Mobile Menu -->
-<script src="{% static 'body/js/jquery.slicknav.min.js' %}"></script>
+        <script
+            src="{% static 'body/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+        <!-- Jquery, Popper, Bootstrap -->
+        <script src="{% static 'body/js/vendor/jquery-1.12.4.min.js' %}"></script>
+        <script src="{% static 'body/js/popper.min.js' %}"></script>
+        <script src="{% static 'body/js/bootstrap.min.js' %}"></script>
+        <!-- Jquery Mobile Menu -->
+        <script src="{% static 'body/js/jquery.slicknav.min.js' %}"></script>
 
-<!-- Jquery Slick , Owl-Carousel Plugins -->
-<script src="{% static 'body/js/owl.carousel.min.js' %}"></script>
-<script src="{% static 'body/js/slick.min.js' %}"></script>
-<!-- One Page, Animated-HeadLin -->
-<script src="{% static 'body/js/wow.min.js' %}"></script>
-<script src="{% static 'body/js/animated.headline.js' %}"></script>
-<script src="{% static 'body/js/jquery.magnific-popup.js' %}"></script>
+        <!-- Jquery Slick , Owl-Carousel Plugins -->
+        <script src="{% static 'body/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'body/js/slick.min.js' %}"></script>
+        <!-- One Page, Animated-HeadLin -->
+        <script src="{% static 'body/js/wow.min.js' %}"></script>
+        <script src="{% static 'body/js/animated.headline.js' %}"></script>
+        <script src="{% static 'body/js/jquery.magnific-popup.js' %}"></script>
 
-<!-- Date Picker -->
-<script src="{% static 'body/js/gijgo.min.js' %}"></script>
-<!-- Nice-select, sticky -->
-<script src="{% static 'body/js/jquery.nice-select.min.js' %}"></script>
-<script src="{% static 'body/js/jquery.sticky.js' %}"></script>
+        <!-- Date Picker -->
+        <script src="{% static 'body/js/gijgo.min.js' %}"></script>
+        <!-- Nice-select, sticky -->
+        <script src="{% static 'body/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'body/js/jquery.sticky.js' %}"></script>
 
-<!-- counter , waypoint,Hover Direction -->
-<script src="{% static 'body/js/jquery.counterup.min.js' %}"></script>
-<script src="{% static 'body/js/waypoints.min.js' %}"></script>
-<script src="{% static 'body/js/jquery.countdown.min.js' %}"></script>
-<script src="{% static 'body/js/hover-direction-snake.min.js' %}"></script>
+        <!-- counter , waypoint,Hover Direction -->
+        <script src="{% static 'body/js/jquery.counterup.min.js' %}"></script>
+        <script src="{% static 'body/js/waypoints.min.js' %}"></script>
+        <script src="{% static 'body/js/jquery.countdown.min.js' %}"></script>
+        <script
+            src="{% static 'body/js/hover-direction-snake.min.js' %}"></script>
 
-<!-- contact js -->
-<script src="{% static 'body/js/contact.js' %}"></script>
-<script src="{% static 'body/js/jquery.form.js' %}"></script>
-<script src=".{% static 'body/js/jquery.validate.min.js' %}"></script>
-<script src="{% static 'body/js/mail-script.js' %}"></script>
-<script src="{% static 'body/js/jquery.ajaxchimp.min.js' %}"></script>
+        <!-- contact js -->
+        <script src="{% static 'body/js/contact.js' %}"></script>
+        <script src="{% static 'body/js/jquery.form.js' %}"></script>
+        <script src=".{% static 'body/js/jquery.validate.min.js' %}"></script>
+        <script src="{% static 'body/js/mail-script.js' %}"></script>
+        <script src="{% static 'body/js/jquery.ajaxchimp.min.js' %}"></script>
 
-<!-- Jquery Plugins, main Jquery -->
-<script src=".{% static 'body/js/plugins.js' %}"></script>
-<script src="{% static 'body/js/main.js' %}"></script>
-</body>
+        <!-- Jquery Plugins, main Jquery -->
+        <script src=".{% static 'body/js/plugins.js' %}"></script>
+        <script src="{% static 'body/js/main.js' %}"></script>
+    </body>
 </html>

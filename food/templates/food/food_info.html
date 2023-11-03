@@ -2,8 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Thông Tin Sản Phẩm</title>
+        <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Food information </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/img/favicon.ico'%}">
             <style>
         .sliderform{
              margin-top: 100px;
@@ -11,7 +16,7 @@
             font-size: 16px; /* Thay đổi kích thước của chữ ở đây */
             padding: 8px;
             }
-        .sliderform .p{
+        .sliderform p{
             color: white;
         }
         /* Đặt đường viền cho bảng */
@@ -116,7 +121,8 @@
                         </div>
                         {% if request.session.is_logged_in %}
                         <div class="header-btns d-none d-lg-block f-right">
-                            <h3>Welcome</h3>
+                                                        <h3 style="color: white; font-size: 30px; border: black;">Welcome</h3>
+
                        </div>
                             {% else %}
                             <div class="header-btns d-none d-lg-block f-right">
@@ -133,8 +139,9 @@
     </div>
     <!-- Header End -->
 </header>
-                 <div class="container">
+<div class="container">
     <div class="sliderform">
+
     <form method="post" action="{% url 'detail' %}">
         {% csrf_token %}
         {% if product and nutrition %}
@@ -156,17 +163,19 @@
             <input type="text" id="serving" name="serving" value="1">
 
             <!-- Nút nhấn để thêm sản phẩm vào bữa ăn -->
-            <button type="submit">Thêm vào bữa ăn</button>
+            <button class="btn btn-outline-dark" type="submit">Thêm vào bữa ăn</button>
         {% elif product  %}
             <h1>{{ product.product_name }}</h1>
-            <p>Brand: {{ product.brands}}</p>
-            <p>Barcode: {{ product.barcode}}</p>
-            <p>Năng Lượng mỗi 100g: {{ product.nutriments.energy_100g}} kcal</p>
-            <p>Carb mỗi 100g: {{ product.nutriments.carbohydrates_100g }} g</p>
-            <p>Fat mỗi 100g: {{ product.nutriments.fat_100g }} g</p>
-            <p>Protein mỗi 100g: {{ product.nutriments.proteins_100g }} g</p>
-            <p>Đường mỗi 100g: {{ product.nutriments.sugars_100g }} g</p>
-            <p>Sodium mỗi 100g: {{ product.nutriments.sodium_100g }} g</p>
+            <p>Brand: {{ product.brands|default:'' }}</p>
+            <p>Barcode: {{ product.barcode|default:'' }}</p>
+
+            <p>Năng Lượng mỗi 100g: {{ product.nutriments.energy_100g|default:'' }} kcal</p>
+            <p>Carb mỗi 100g: {{ product.nutriments.carbohydrates_100g|default:'' }} g</p>
+            <p>Fat mỗi 100g: {{ product.nutriments.fat_100g|default:'' }} g</p>
+            <p>Protein mỗi 100g: {{ product.nutriments.proteins_100g|default:'' }} g</p>
+            <p>Đường mỗi 100g: {{ product.nutriments.sugars_100g|default:'' }} g</p>
+            <p>Sodium mỗi 100g: {{ product.nutriments.sodium_100g|default:'' }} g</p>
+
 
             <!-- Hình ảnh sản phẩm -->
             <img src="{{ product.image_front_small_url }}" alt="Hình ảnh sản phẩm">
@@ -176,13 +185,14 @@
             <input type="text" id="serving" name="serving" value="1">
 
             <!-- Nút nhấn để thêm sản phẩm vào bữa ăn -->
-            <button type="submit">Thêm vào bữa ăn</button>
+            <button class="btn btn-outline-dark" type="submit">Thêm vào bữa ăn</button>
         {% else %}
             <p>Sản phẩm không tồn tại hoặc không có thông tin.</p>
         {% endif %}
     </form>
+
     </div>
-                 </div>
+</div>
 <footer>
     <!--? Footer Start-->
     <div class="footer-area black-bg">
