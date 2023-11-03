@@ -2,8 +2,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+        <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Tracking </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/img/favicon.ico'%}">
     <style>
 table, th, td {
   border:1px solid black;
@@ -55,6 +60,12 @@ table, th, td {
         tr:hover {
             background: #ddd;
         }
+            .custom-heading {
+                color: darkred;
+                margin: 20px;
+                margin-left: 0px;
+                font-size: 40px;
+            }
 
     </style>
     <link rel="stylesheet" href="{% static 'food/css/style.css' %}">
@@ -118,7 +129,8 @@ table, th, td {
                         </div>
                         {% if request.session.is_logged_in %}
                         <div class="header-btns d-none d-lg-block f-right">
-                            <h3>Welcome</h3>
+                                                        <h3 style="color: white; font-size: 30px; border: black;">Welcome</h3>
+
                        </div>
                             {% else %}
                             <div class="header-btns d-none d-lg-block f-right">
@@ -137,7 +149,7 @@ table, th, td {
 </header>
                  <div class="container">
     <div class="sliderform">
-<h1>Danh sách EatTrack của bạn:</h1>
+    <h1 class="custom-heading">Danh sách EatTrack của bạn:</h1>
     <ul>
         {% for eat_track in eat_tracks %}
             <li>

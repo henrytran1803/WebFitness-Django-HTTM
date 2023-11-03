@@ -3,15 +3,23 @@
 <html>
 <head>
     <title>Detail exersice</title>
-<meta name="description" content="">
+    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="../../static/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/img/favicon.ico'%}">
             <style>
         /* Định nghĩa các kiểu CSS bên trong thẻ style */
         .sliderform{
              margin-top: 100px;
             }
+        .sliderform h1{
+            color: red;
+            font-size: 40px;
+        }
+        .sliderform li{
+            color: white;
+            font-size: 20px;
+        }
     </style>
     <!-- CSS here -->
     <link rel="stylesheet" href="{% static 'home/css/bootstrap.min.css' %}">
@@ -89,7 +97,8 @@
                         </div>
                         {% if request.session.is_logged_in %}
                         <div class="header-btns d-none d-lg-block f-right">
-                            <h3>Welcome</h3>
+                                                        <h3 style="color: white; font-size: 30px; border: black;">Welcome</h3>
+
                        </div>
                             {% else %}
                             <div class="header-btns d-none d-lg-block f-right">
@@ -123,8 +132,9 @@
         <li><strong>Thời Gian (giây):</strong> {{ exercise.durationinseconds }}</li>
         <li><strong>Calories Đốt Cháy Mỗi Phút:</strong> {{ exercise.caloriesburnedperminute }}</li>
         <li><strong>Các Cơ Mục Tiêu:</strong> {{ exercise.targetedmuscles }}</li>
+        <li><strong>Ảnh minh họa:</strong> <img style="height: 200px;" src="{{ exercise.imageurl }}"></li>
     </ul>
-    <a href="{% url 'exersice' page_number=page_number %}">Quay lại danh sách bài tập</a>
+    <a style="color: red" href="{% url 'exersice' page_number=page_number %}">Quay lại danh sách bài tập</a>
 
     </div>
                 </div>

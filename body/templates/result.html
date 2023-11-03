@@ -1,7 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Prediction Result body</title>
+        <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Result body </title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/img/favicon.ico'%}">
         <!-- CSS here -->
     <link rel="stylesheet" href="{% static 'body/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'body/css/owl.carousel.min.css' %}">
@@ -16,6 +23,30 @@
     <link rel="stylesheet" href="{% static 'body/css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'body/css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'body/css/style.css' %}">
+            <style>
+        /* Định nghĩa các kiểu CSS bên trong thẻ style */
+        .sliderform{
+             margin-top: 100px;
+            color: white;
+            font-size: 16px; /* Thay đổi kích thước của chữ ở đây */
+            padding: 8px;
+            }
+        .custom-select {
+            background-color: black; /* Đặt màu nền */
+            color: black; /* Đặt màu chữ (cùng màu với màu nền để ẩn chữ) */
+            width: 150px;
+            margin: 10px 10px 10px 10px;
+        }
+        .sliderform p{
+            color: white;
+        }
+            .custom-select-container {
+        display: inline-block;
+    }
+            .custom-submit {
+            display: block; /
+            }
+            </style>
 </head>
 <body CLASS="black-bg">
 <div id="preloader-active">
@@ -76,7 +107,8 @@
                         </div>
                         {% if request.session.is_logged_in %}
                         <div class="header-btns d-none d-lg-block f-right">
-                            <h3>Welcome</h3>
+                                                        <h3 style="color: white; font-size: 30px; border: black;">Welcome</h3>
+
                        </div>
                             {% else %}
                             <div class="header-btns d-none d-lg-block f-right">
@@ -93,10 +125,14 @@
     </div>
     <!-- Header End -->
 </header>
-    <h1>Result</h1>
-    <p>Percented body fat : {{ result }}</p>
-    <h2><a href="{% url 'predict_label' page_number=1 %}">Suggestion</a></h2>
 
+        <div class="container">
+            <div class="sliderform">
+    <h1 style="color: darkred">Result</h1>
+    <p>Percented body fat : {{ result }}</p>
+    <h2 style="color: white"><a href="{% url 'predict_label' page_number=1 %}">Suggestion</a></h2>
+            </div>
+        </div>
 
 <footer>
     <!--? Footer Start-->
