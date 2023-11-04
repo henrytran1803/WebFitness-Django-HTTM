@@ -9,7 +9,8 @@ from .models import Products, Nutritions, EatTrack, DetailEatTrack, AuthUser
 from django.shortcuts import get_object_or_404
 def info(request, barcode):
     product = get_object_or_404(Products, barcode=barcode)
-    nutrition = product.barcode
+    nutrition = Nutritions.objects.get(nutrition_id=product)
+
     request.session['barcode']=product.barcode
     return render(request, 'food/food_info.html', {'product': product, 'nutrition': nutrition})
 
@@ -20,7 +21,7 @@ def food(request):
         print(barcode)
         try:
             product = Products.objects.get(barcode=barcode)
-            nutrition = product.barcode
+            nutrition = Nutritions.objects.get(nutrition_id=product)
             return render(request, 'food/food_info.html', {'product': product, 'nutrition': nutrition})
         except Products.DoesNotExist:
             api_url = f'https://world.openfoodfacts.org/api/v0/product/{barcode}?fields=product_name,brands,nutriments,nutrition_grades,image_front_small_url'

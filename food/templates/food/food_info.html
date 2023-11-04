@@ -154,15 +154,10 @@
             <p>Protein mỗi 100g: {{ nutrition.proteins_100g }} g</p>
             <p>Đường mỗi 100g: {{ nutrition.sugars_100g }} g</p>
             <p>Sodium mỗi 100g: {{ nutrition.sodium_100g }} g</p>
-
-            <!-- Hình ảnh sản phẩm -->
             <img src="{{ product.image_url }}" alt="Hình ảnh sản phẩm">
-
-            <!-- Text box để nhập số lượng dịch vụ -->
             <label for="serving">Số lượng dịch vụ:</label>
             <input type="text" id="serving" name="serving" value="1">
 
-            <!-- Nút nhấn để thêm sản phẩm vào bữa ăn -->
             <button class="btn btn-outline-dark" type="submit">Thêm vào bữa ăn</button>
         {% elif product  %}
             <h1>{{ product.product_name }}</h1>
