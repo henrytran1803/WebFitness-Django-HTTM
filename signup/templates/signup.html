@@ -39,21 +39,21 @@
             <form action="{% url 'signup' %}" method="post">
                 {% csrf_token %}
                 <div class="top-row">
-                  <div class="field-wrap">
+                  <div class="field-wrap" style="width: 100%;">
                     <label for="email">
                         Email<span class="req">*</span>
                     </label>
                     <input type="email" id="email" name="email" required autocomplete="off"/>
                 </div>
 
-                <div class="field-wrap">
+                <div class="field-wrap" style="width: 100%;">
                     <label for="email">
                         User Name<span class="req">*</span>
                     </label>
                     <input type="text" id="username" name="username" required autocomplete="off"/>
                 </div>
 
-                <div class="field-wrap">
+                <div class="field-wrap" style="width: 100%;">
                     <label for="password">
                         Set A Password<span class="req">*</span>
                     </label>
