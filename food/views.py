@@ -76,10 +76,12 @@ def food(request):
                 return HttpResponseNotFound('Không tìm thấy thông tin sản phẩm')
 
     # Retrieve all products
-    all_products = Products.objects.all()
+    products = Products.objects.all()
+
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(all_products, 5)  # Show 5 products per page
+    paginator = Paginator(products, 1000)  # Hiển thị 5 sản phẩm trên mỗi trang
+
     try:
         products = paginator.page(page)
     except PageNotAnInteger:
@@ -88,6 +90,8 @@ def food(request):
         products = paginator.page(paginator.num_pages)
 
     return render(request, 'food/input_barcode.html', {'products': products})
+
+
 def tracking(request):
     user_id = request.user.id
     eat_tracks = EatTrack.objects.filter(user_id=user_id)

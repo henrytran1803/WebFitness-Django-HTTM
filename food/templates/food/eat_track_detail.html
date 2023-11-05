@@ -193,11 +193,11 @@
                                         <div class="main-menu main-menu2 text-center">
                                             <nav>
                                                 <ul>
-                                                    <li><a href="index.html">Home</a></li>
-                                                    <li><a href="../../../templates/about.html">Body</a></li>
-                                                    <li><a href="../../../templates/courses.html">Food</a></li>
-                                                    <li><a href="../../../templates/pricing.html">Exersice</a></li>
-                                                    <li><a href="../../../templates/contact.html">Contact</a></li>
+                                                    <li><a href="{% url 'index' %}">Home</a></li>
+                                                    <li><a href="{% url 'body' %}">Body</a></li>
+                                                    <li><a href="{% url 'food' %}">Food</a></li>
+                                                    <li><a href="{% url 'exersice' page_number=1%}">Exersice</a></li>
+                                                    <li><a href="{% url 'index' %}">Contact</a></li>
                                                 </ul>
                                             </nav>
                                         </div>
