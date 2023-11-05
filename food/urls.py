@@ -7,4 +7,5 @@ urlpatterns = [
     path('eat_track/<int:track_id>/', views.eat_track_detail, name='eat_track_detail'),
     path('track/detail/', views.detail, name='detail'),
     path('info/<str:barcode>/', views.info, name='info'),
+
 ]
