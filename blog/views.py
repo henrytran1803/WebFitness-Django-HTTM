@@ -1,8 +1,8 @@
+from urllib import request
+
 from django.shortcuts import render
 
-def blog(render):
-    return  render
-def blog_details(render):
-    return  render
-def elements(render):
-    return  render
+def blog(request):
+    return  render(request, 'blog/blog.html')
+def blog_details(request):
+    return  render(request, 'blog/blog_details.html')
