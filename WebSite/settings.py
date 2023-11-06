@@ -91,7 +91,7 @@ DATABASES = {
         "NAME": "fitness",
         "USER": "SA",
         "PASSWORD": "1803@Anh",
-        "HOST": "localhost",
+        "HOST": "192.168.1.4",
         "PORT": "1433",
 
         "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server",
